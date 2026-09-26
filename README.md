@@ -1,87 +1,66 @@
-# ROS 2 Mobile Manipulator Simulation
+# ROS 2 移动机械臂仿真
 
-A course project that integrates a self-designed SolidWorks mobile manipulator with ROS 2 Humble and Gazebo Fortress. The model has a four-wheel skid-steer base, a four-joint arm, a parallel gripper, a 2D LiDAR and an RGB camera.
+> **课程设计 / 个人学习项目**：基于自建 SolidWorks 模型，完成移动底盘、机械臂、夹爪、传感器和 SLAM 的 ROS 2 仿真集成。机器人运动与定量结果均来自 Gazebo，尚未进行真实机器人实验。
 
-**Robot motion, sensing, SLAM and quantitative results in this repository are simulation results. No physical robot, payload, grasping or field-navigation experiment is claimed.** A real USB gamepad was used to control the simulated robot.
+基于 **ROS 2 Humble、Gazebo Fortress 和 Python** 的移动机械臂仿真。机器人由四轮 skid-steer 底盘、J1–J4 四关节机械臂、平行夹爪、2D LiDAR 和 RGB 相机构成。
 
-## Demo / screenshots
+目前可以通过键盘或 USB Nintendo Pro Controller 遥操作底盘，运行机械臂与夹爪演示，使用 SLAM Toolbox 建图并保存地图。提供一个 Tkinter 操作面板和基础自动化检查。
 
-![RViz robot, TF, scan and SLAM map](docs/images/rviz.png)
+真实 USB 手柄已用于控制仿真机器人；这部分验收不等于真实机器人运动、抓取或载荷实验。项目不包含 Nav2、MoveIt、自动探索或路径规划。
 
-![Lightweight Tkinter control panel](docs/images/panel.png)
+## 仿真画面
 
-These are captures from the running project. The room map is partial; unknown space is not evidence of complete room coverage.
+RViz 中的机器人模型、TF、激光扫描、相机画面与 SLAM 地图：
 
-## System architecture
+![RViz 模型与建图](docs/images/rviz.png)
 
-```mermaid
-flowchart LR
-    CAD[Self-authored STL / Xacro] --> RSP[robot_state_publisher]
-    CAD --> Model[prepare_model.py: temporary URDF / SDF]
-    Model --> GZ[Gazebo Fortress]
-    USB[USB gamepad] --> Joy[joy_node]
-    Keys[Keyboard] --> Router[teleop_router]
-    Joy --> Router
-    Router --> Cmd[/cmd_vel]
-    Cmd --> Guard[cmd_vel_guard: limits + wall-time timeout]
-    Guard --> Bridge[ros_gz_bridge]
-    Bridge --> GZ
-    Arm[arm_control.py] --> JTC[arm / gripper trajectory controllers]
-    JTC --> Control[gz_ros2_control]
-    Control --> GZ
-    GZ --> Sensors[scan / image / odom / joint_states / clock]
-    Sensors --> SLAM[SLAM Toolbox]
-    SLAM --> Map[map + map-to-odom TF]
-    Sensors --> RViz[RViz]
-    RSP --> RViz
-    Map --> RViz
-    Panel[Tkinter panel] -. existing CLI / ROS interfaces .-> Arm
-    Panel -. existing CLI / ROS interfaces .-> Router
-    Panel -. launch / map save / health .-> SLAM
+轻量操作面板：
+
+![Tkinter 操作面板](docs/images/panel.png)
+
+截图来自项目实际运行。当前地图仍有未知区域和遮挡，未完成整间房的完整覆盖。
+
+## 已验证环境
+
+| 项目 | 环境或配置 |
+| --- | --- |
+| 操作系统 | Ubuntu 22.04，VMware 虚拟机 |
+| ROS 2 / Python | Humble / Python 3.10 |
+| 仿真 | Gazebo Fortress 6.18.0 |
+| 仿真桥接 | `ros_gz_sim`、`ros_gz_bridge` |
+| 控制 | `gz_ros2_control` 0.7.21、JointTrajectoryController 2.54.0 |
+| 建图与显示 | SLAM Toolbox 2.6.10、RViz 2 |
+| GUI | Python Tkinter |
+
+这些版本是开发环境中的记录，不代表所有后续版本都已验证。安装与测试使用已有 Ubuntu 开发环境，未在全新虚拟机上完整重做依赖安装。
+
+## 机器人模型
+
+| 部分 | 当前实现 |
+| --- | --- |
+| 底盘 | 约 0.40 × 0.30 m，四轮 skid-steer；轮半径 0.05 m，轮距 0.35 m |
+| 机械臂 | J1 绕竖直轴旋转，J2–J4 为俯仰关节 |
+| 夹爪 | 两个移动副 jaw，开口约 20–50 mm；两个关节接收相同目标并分别校验 |
+| STL | 10 个自行建模的文件，`scale=0.001` 将毫米转换为米 |
+| LiDAR | 仿真激光扫描，360 个采样点，仿真时间下配置为 10 Hz |
+| 相机 | 320 × 240 RGB 图像，仿真时间下配置为 10 Hz |
+
+机械臂和夹爪都使用 **JointTrajectoryController**。机械臂采用 position 命令接口，夹爪采用 effort/PID 跟踪位置目标。夹爪没有移除轨迹控制器。
+
+LiDAR 外观使用圆柱体，相机使用盒体和圆柱体；没有打包来源不明的标准件 CAD。惯量与碰撞几何有估算和简化。
+
+## 安装与启动
+
+以下假定已安装 [ROS 2 Humble desktop](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html) 和 Gazebo Fortress，并配置对应软件源。仿真控制插件的版本配套说明见 [gz_ros2_control Humble 文档](https://control.ros.org/humble/doc/gz_ros2_control/doc/index.html)。
+
+获取源码：
+
+```bash
+git clone https://github.com/iori-shino/ros2-mobile-manipulator.git ~/robot_ws
+cd ~/robot_ws
 ```
 
-## Robot model and software stack
-
-| Item | Implemented configuration |
-|---|---|
-| Base | Approximately 0.40 × 0.30 m; four wheels, radius 0.05 m, track 0.35 m |
-| Arm / gripper | J1 yaw, J2–J4 pitch; two prismatic jaws, approximately 20–50 mm opening |
-| Meshes | Ten author-created STL files; millimetres converted to metres with scale 0.001 |
-| Sensor appearance | LiDAR cylinder and camera box/cylinders; no downloaded sensor CAD |
-| OS / middleware | Ubuntu 22.04, ROS 2 Humble, Python 3.10 |
-| Simulation | Gazebo Fortress; `ros_gz_sim`, `ros_gz_bridge`, `gz_ros2_control` |
-| Controllers | JointTrajectoryController for both arm and gripper; arm position interface, gripper effort/PID interface |
-| Mapping / display | SLAM Toolbox online asynchronous mapping, RViz 2 |
-| Optional panel | Python Tkinter; no Qt application framework |
-
-Reference versions recorded during development: Fortress 6.18.0, gz_ros2_control 0.7.21, joint_trajectory_controller 2.54.0, slam_toolbox 2.6.10. They describe the tested environment, not a guarantee for every package update.
-
-## Features and scope
-
-- RViz model and TF; physics-based base, arm and symmetric jaw motion.
-- Simulated 360-sample LiDAR and 320 × 240 RGB camera, configured at 10 Hz in simulation time.
-- SLAM map generation and checked YAML/PGM saving.
-- Keyboard and measured USB controller mapping with enable, stop, deadzone and wall-time timeouts.
-- Read-only system checks and isolated teleoperation regression tests.
-- A small panel that starts existing commands, reports status and sends software stop requests.
-
-There is no Nav2 navigation, MoveIt, route planning, automatic exploration, object recognition or real-robot driver.
-
-## Repository structure
-
-```text
-src/mobile_manipulator_description/   Xacro, original STL, RViz configuration
-src/mobile_manipulator_gazebo/        launches, worlds, controllers and Python tools
-tools/acceptance/                    portable calibration and regression utilities
-tools/prepare_release.py             allowlisted, history-free release export
-tools/check_release.py               static release checks
-docs/                               architecture, evidence, issues and project facts
-maps/                               saved example map
-```
-
-## Installation / dependencies
-
-Use Ubuntu 22.04 with an existing [ROS 2 Humble desktop installation](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html) and Gazebo Fortress. The [Humble gz_ros2_control documentation](https://control.ros.org/humble/doc/gz_ros2_control/doc/index.html) describes the matching simulator plugin.
+安装构建、控制、遥操作和测试工具：
 
 ```bash
 sudo apt update
@@ -92,45 +71,95 @@ sudo apt install python3-colcon-common-extensions python3-rosdep python3-pytest 
   ros-humble-teleop-twist-joy ros-humble-joint-state-publisher-gui
 ```
 
-Clone or unpack the repository into a workspace directory, for example `~/robot_ws`. Run the following **from the repository root**. Initialize rosdep once if the machine has not been initialized (`sudo rosdep init`), then:
+如果机器尚未初始化 rosdep，先执行一次 `sudo rosdep init`。然后在仓库根目录检查依赖并构建：
 
 ```bash
 source /opt/ros/humble/setup.bash
 rosdep update
 rosdep install --from-paths src --ignore-src --rosdistro humble -r -y
-```
-
-The panel needs a graphical desktop. The robot CLI does not depend on Tkinter. The panel's keyboard button uses GNOME Terminal; the keyboard script can also run directly in another interactive terminal.
-
-## Build
-
-```bash
-source /opt/ros/humble/setup.bash
 colcon build --symlink-install
 source install/setup.bash
 ```
 
-In each subsequent terminal, source ROS and this workspace again. Do not launch duplicate simulation, SLAM, joy or teleop nodes.
+新终端需要重新加载 ROS 和工作空间环境。以下命令默认在仓库根目录运行。
 
-## Running
-
-The smallest complete mapping demonstration:
+启动房间仿真、SLAM 和 RViz：
 
 ```bash
 ros2 launch mobile_manipulator_gazebo mapping_demo.launch.py
 ```
 
-This starts the room simulation, SLAM and RViz. Driving remains manual. For simulation without SLAM use `ros2 launch mobile_manipulator_gazebo sim.launch.py`; for a model-only RViz session use `ros2 launch mobile_manipulator_description display.launch.py`. Do not run model-only joint-state publishing together with physics simulation.
+启动后通过遥操作驾驶，系统不会自动探索。已有仿真或 SLAM 节点运行时，不要重复启动整组演示。
 
-Optional panel, from the workspace root:
+也可以单独启动：
 
 ```bash
-ros2 run mobile_manipulator_gazebo robot_panel.py --workspace "$PWD"
+# 只启动仿真
+ros2 launch mobile_manipulator_gazebo sim.launch.py
+
+# 只查看模型与 TF
+ros2 launch mobile_manipulator_description display.launch.py
 ```
 
-The panel can start/stop verified simulation sessions, open keyboard input, start gamepad teleop/SLAM, run the existing arm demo and health check, and save a map. It detects running ROS nodes and refuses duplicate launches. Closing the panel leaves ROS sessions running. **STOP is a software command stop**, sent through the existing safety chain plus action cancellation; it is not a certified or latched hardware emergency stop. New commands can resume motion. See [GUI operation](docs/GUI.md).
+模型展示模式的 joint-state 发布不要与物理仿真同时运行。
 
-Arm and gripper examples:
+## 键盘与手柄控制
+
+启动统一遥操作节点和 USB 输入驱动：
+
+```bash
+ros2 launch mobile_manipulator_gazebo teleop.launch.py
+```
+
+如果已有 `joy_node`，使用 `start_joy:=false`；没有手柄时使用 `keyboard_only:=true`。不要并行运行多个持续发布 `/cmd_vel` 的控制工具。
+
+### 键盘
+
+在另一个交互终端中加载环境后运行：
+
+```bash
+ros2 run mobile_manipulator_gazebo teleop_keyboard.py
+```
+
+| 按键 | 动作 |
+| --- | --- |
+| W / S | 前进 / 后退 |
+| A / D | 左转 / 右转 |
+| 空格 | 停止 |
+| Q / Ctrl+C | 停止并退出 |
+
+按住或重复按键保持运动。键盘线速度为 0.04 m/s，角速度为 0.3 rad/s。终端没有 key-up 事件，松键后通过 0.30 秒现实时间超时停止；首次长按可能受操作系统按键重复延迟影响。
+
+### USB 手柄
+
+下面是 **Nintendo Co., Ltd. Pro Controller** 的实际 `/joy` 标定结果，axis/button 均从 0 开始编号：
+
+| 输入 | 索引与方向 |
+| --- | --- |
+| 左摇杆水平 / 垂直 | axes 0 / 1，向左 / 向上为正 |
+| 右摇杆水平 / 垂直 | axes 2 / 3，已记录，未用于底盘控制 |
+| A / B / X / Y | buttons 1 / 0 / 2 / 3 |
+| L / R | buttons 5 / 6 |
+| ZL / ZR | buttons 7 / 8 |
+| − / + | buttons 9 / 10 |
+
+**先松开 L、让左摇杆回中，再按住 L 使能，推动左摇杆控制底盘。松开 L 停止，B 为独立停止键。**
+
+手柄最大线速度为 **0.05 m/s = 3 m/min**，最大角速度为 0.4 rad/s。驱动死区为 0.05，router 额外死区为 0.15；输入超时为 0.30 秒现实时间。下游 guard 另保留速度限幅和 0.5 秒现实时间超时停车。
+
+按住手柄使能键时，手柄优先于键盘运动键；键盘空格可以停止任一输入。
+
+映射会随设备和驱动变化。需要重新标定本款手柄时，先运行 `ros2 run joy joy_node`，再执行：
+
+```bash
+python3 tools/acceptance/joy_calibrate.py
+```
+
+该脚本只读取 `/joy`，按标注步骤生成 Gazebo 包中的 `config/teleop_mapping.yaml`，修改后需重新构建。脚本明确指定了这款设备，并按按钮形式处理扳机；其他手柄需先检查设备名与扳机类型，不能直接套用 Xbox、PS 或通用 Switch 映射。
+
+## 机械臂、夹爪与操作面板
+
+现有命令接口：
 
 ```bash
 ros2 run mobile_manipulator_gazebo arm_control.py J2 0.4
@@ -139,53 +168,68 @@ ros2 run mobile_manipulator_gazebo arm_control.py close
 ros2 run mobile_manipulator_gazebo arm_control.py home
 ```
 
-`arm_control.py demo` runs the longer previously validated sequence; it is optional, can take several minutes in a slow VM, and is not required for routine health checks. No grasped object or payload is tested.
+`arm_control.py demo` 执行已验证的完整关节与夹爪演示，在慢速虚拟机中可能需要数分钟，不作为日常健康检查。未测试抓取物体或载荷。
 
-## Keyboard / gamepad controls
-
-Start the shared router and USB driver once:
+从已构建的仓库根目录启动 GUI：
 
 ```bash
-ros2 launch mobile_manipulator_gazebo teleop.launch.py
+ros2 run mobile_manipulator_gazebo robot_panel.py --workspace "$PWD"
 ```
 
-Use `start_joy:=false` if a joy_node already runs. With no gamepad, use `keyboard_only:=true`. Then open a separate interactive terminal:
+面板提供仿真启动/停止、键盘/手柄遥操作、机械臂 demo、回零、健康检查、SLAM、保存地图和 STOP 入口。底层调用已有 launch、脚本和 ROS 接口。
 
-```bash
-ros2 run mobile_manipulator_gazebo teleop_keyboard.py
+关闭面板后，ROS 会话继续运行。面板只停止自己启动或已验证归属的会话；外部进程需要在原终端结束。停止仿真前应先保存需要保留的地图。
+
+**STOP 是软件命令停止**：底盘零速仍经过原 guard，并请求取消机械臂/夹爪动作。它不是锁存式硬件急停，新指令可以恢复运动。详细操作见 [GUI.md](docs/GUI.md)。
+
+GUI 需要图形桌面，键盘按钮使用 GNOME Terminal；命令行可以独立使用。
+
+## 节点与通信
+
+```mermaid
+flowchart LR
+    CAD["自建 STL / Xacro"] --> RSP["robot_state_publisher"]
+    CAD --> Model["prepare_model.py：临时 URDF / SDF"]
+    Model --> GZ["Gazebo Fortress"]
+    USB["USB 手柄"] --> Joy["joy_node"]
+    Joy --> Router["teleop_router"]
+    Keys["键盘"] --> Router
+    Router --> Cmd["/cmd_vel"]
+    Cmd --> Guard["cmd_vel_guard：限幅与现实时间超时"]
+    Guard --> Bridge["ros_gz_bridge"]
+    Bridge --> GZ
+    Arm["arm_control.py"] --> JTC["机械臂 / 夹爪轨迹控制器"]
+    JTC --> Control["gz_ros2_control"]
+    Control --> GZ
+    GZ --> Sensors["scan / image / odom / joint_states / clock"]
+    Sensors --> SLAM["SLAM Toolbox"]
+    SLAM --> Map["地图与 map→odom TF"]
+    Sensors --> RViz["RViz"]
+    RSP --> RViz
+    Map --> RViz
+    Panel["Tkinter 面板"] -.-> Arm
+    Panel -.-> Router
+    Panel -.-> SLAM
 ```
 
-W/S = forward/backward, A/D = left/right, Space = stop, Q/Ctrl-C = stop and quit. Hold/repeat a key for continuous motion. Keyboard speed is 0.04 m/s and 0.3 rad/s; a 0.30 s wall-time input timeout handles missing key-up events.
+键盘和手柄由同一个 router 仲裁，再经过原底盘安全链。仿真传感器、控制器和 SLAM 使用仿真时间，输入与命令失效停车使用现实时间。
 
-Measured mapping for **Nintendo Co., Ltd. Pro Controller**, using `joy_node`, zero-based indices:
+## SLAM 与地图保存
 
-| Input | `/joy` index / direction |
-|---|---|
-| Left stick horizontal / vertical | axes 0 / 1; left / up positive |
-| Right stick horizontal / vertical | axes 2 / 3; recorded but unused for driving |
-| A / B / X / Y | buttons 1 / 0 / 2 / 3 |
-| L / R | buttons 5 / 6 |
-| ZL / ZR | buttons 7 / 8 |
-| Minus / Plus | buttons 9 / 10 |
-
-**Release L, centre the left stick, then hold L to enable; move the stick to drive. Release L to stop. B is a separate stop button.** Gamepad speed is limited to 0.05 m/s (3 m/min) and 0.4 rad/s. The router uses a 0.15 deadzone after the driver's 0.05 deadzone and a 0.30 s wall-time input timeout. The existing downstream guard separately clamps speed and stops stale commands after 0.5 s wall time. Held gamepad enable takes priority over movement keys; Space can stop either input. Do not simultaneously run other tools that publish `/cmd_vel` directly.
-
-Mappings vary with device/driver. To repeat calibration for this Pro Controller, run `ros2 run joy joy_node`, then `python3 tools/acceptance/joy_calibrate.py` and follow the labelled prompts. The calibrator only reads `/joy`. It generates `config/teleop_mapping.yaml` in the Gazebo package; rebuild to install a newly generated file. The helper names this device explicitly and expects button triggers. Other hardware requires reviewing the device name and adapting trigger handling before calibration. Do not assume an Xbox, PS or generic Switch layout.
-
-## SLAM demo and map saving
-
-For a simulation that is already running, start SLAM separately:
+如果仿真已在运行，可以单独启动 SLAM：
 
 ```bash
 ros2 launch mobile_manipulator_gazebo slam.launch.py
 ros2 run mobile_manipulator_gazebo save_slam_map.py maps/generated/demo_room
 ```
 
-Use a new map name each time; existing maps are not overwritten. `maps/stage5_room_20260927.yaml` and its PGM are a saved, partial simulation example. The fixed `slam_test_route.py` is an acceptance utility for a **fresh room/origin only**, not a navigation or general autonomous-driving feature.
+每次保存使用新名称，已有地图不会被覆盖。仓库中的 `maps/stage5_room_20260927.yaml` 和 PGM 是一次仿真建图的部分结果。
 
-## Automated validation
+`slam_test_route.py` 仅用于新房间、初始原点下的固定验收路线，不是通用导航或自动驾驶功能。
 
-With simulation, SLAM and full teleoperation running:
+## 测试与验收范围
+
+仿真、SLAM 和完整遥操作运行时，在已加载环境的仓库根目录执行：
 
 ```bash
 ros2 run mobile_manipulator_gazebo system_health.py
@@ -193,30 +237,56 @@ python3 -m pytest -q tools/acceptance/test_teleop_core.py tools/acceptance/test_
 python3 tools/acceptance/teleop_integration.py
 ```
 
-Health checks are read-only and take about 25 wall seconds. Use `--keyboard-only` for keyboard-only operation or `--skip-teleop` when no teleop is started. Integration tests use isolated `/stage6_test/*` topics and do not move the running robot. Actual USB input acceptance is guided by `python3 tools/acceptance/teleop_physical_acceptance.py` and requires a human operator.
+健康检查只读，约需 25 秒现实时间，检查节点、`/cmd_vel` 链、odom、scan、相机、TF、SLAM 和控制器状态。仅用键盘时加 `--keyboard-only`，未启动遥操作时加 `--skip-teleop`。
 
-Recorded results, their limits and exact evidence fields are in [validation results](docs/VALIDATION.md) and [machine-readable evidence](docs/evidence/results.json). Historical runs are distinguished from final-stage checks. Do not interpret near-zero ideal-simulation drift as real-world accuracy.
+单元测试无需启动仿真。隔离集成测试使用 `/stage6_test/*` topic，不移动当前机器人。真实 USB 输入验收使用 `python3 tools/acceptance/teleop_physical_acceptance.py`，需要人工操作。
 
-## Known limitations
+| 已完成检查 | 结果与范围 |
+| --- | --- |
+| 独立发布副本构建 | 两个 ROS 包构建成功，未加载原开发工作空间 overlay |
+| 单元测试 | 18/18，包含遥操作逻辑与 GUI 进程归属 |
+| 隔离 ROS 集成 | 22/22，包含输入断流、限幅、router 退出和键盘终端恢复 |
+| 系统健康检查 | 24/24 |
+| GUI 集成检查 | 17/17，包含接口调用、地图保存、停止和动作取消 |
+| 底盘短程测试 | 前进约 0.20044 m、后退约 −0.20004 m；转向与看门狗检查通过 |
+| 机械臂与夹爪 | 12 个机械臂目标、4 个夹爪目标通过，无载荷测试 |
+| SLAM | 地图保存与重新读取通过；示例地图为 119 × 98 cells，约 0.05 m/cell |
+| USB 手柄人工验收 | 前后左右、松 L 停止、B 停止、键盘切换与模型稳定性通过 |
 
-- Simulation only; estimated inertias and simplified collision geometry. No real-robot safety, payload or grasping validation.
-- Self-collision is disabled; validated demo poses do not guarantee arbitrary arm configurations are collision-free.
-- Four-wheel skid-steer uses tuned anisotropic friction/slip for this world. It is not a calibrated tire/ground model.
-- The VM can run well below real time. 0.05 m/s is per simulation second; model scaling is not an extra speed multiplier. Keep wall-time command watchdogs independent of simulation time.
-- The map has unknown/occluded regions; full-room coverage and navigation are not claimed.
-- Physical USB disconnect/reconnect was not separately accepted. Input silence and router failure were tested, but a driver repeating frozen input cannot be detected solely by message arrival time.
-- Software stop is not a hardware emergency stop. The GUI supervises only its own or verified same-workspace sessions; external sessions may need to be stopped in their terminal.
+上述检查不都是本阶段重新执行的测试。底盘、机械臂、夹爪和建图数字来自已有阶段记录；最终阶段保留了正在运行的仿真与 SLAM，没有重跑长时间物理回归。GUI 的仿真停止归属逻辑使用受控测试进程验证。
 
-See [engineering log](docs/ENGINEERING_LOG.md) for symptoms, evidence, fixes and remaining uncertainty.
+具体来源、字段和解释边界见 [VALIDATION.md](docs/VALIDATION.md)、[历史结果摘要](docs/evidence/results.json) 和 [最终检查记录](docs/evidence/final_checks.json)。理想仿真中的小误差不能当作实车精度。
 
-## Asset provenance and publication
+## 源码结构
 
-The author confirmed the ten robot STL files are self-created and contain no third-party CAD. Sensor appearances and room geometry are primitives created in this project. No SolidWorks installer, commercial CAD library, downloaded standard-part mesh or dependency source is redistributed. File hashes and scope are in [asset provenance](docs/ASSET_PROVENANCE.md).
+```text
+src/mobile_manipulator_description/   Xacro、自建 STL、RViz 配置
+src/mobile_manipulator_gazebo/        launch、场景、控制配置与 Python 脚本
+tools/acceptance/                    标定、遥操作与进程归属测试
+tools/prepare_release.py             按白名单生成无旧历史的发布副本
+tools/check_release.py               发布文件、哈希与敏感内容检查
+docs/                               工程问题、验证记录与项目事实材料
+maps/                               已保存的示例地图
+```
 
-No open-source licence has been selected by the author yet; existing package metadata remains `Proprietary`. Public visibility would not grant a permissive reuse licence. See [NOTICE](NOTICE.md). The prepared release contains no development Git history or local handoff/session records; see [release checks](docs/RELEASE_CHECKLIST.md).
+工程问题整理在 [ENGINEERING_LOG.md](docs/ENGINEERING_LOG.md)，项目事实与面试技术点整理在 [PROJECT_FACTS.md](docs/PROJECT_FACTS.md)。
 
-## Development assistance / acknowledgements
+## 当前边界
 
-Parts of the ROS 2 integration, debugging workflow, test automation, GUI and documentation were developed with assistance from OpenAI Codex. The project author defined the project requirements, created the CAD model, reviewed integration decisions, operated the simulation/gamepad tests and performed final acceptance. AI assistance included implementing and executing integration code and automated checks under that review; the code is not presented as entirely hand-written by the author.
+- 当前只有仿真机器人。没有真实机器人控制、安全回路、抓取、载荷或长期可靠性验证。
+- 自碰撞关闭，已通过的演示姿态不代表任意关节配置都无碰撞。
+- skid-steer 摩擦与 slip 参数针对当前场景调整，不是标定过的轮胎模型。
+- 虚拟机实时率可能较低。0.05 m/s 是每仿真秒的速度；STL 的 0.001 是单位换算，不会再把速度缩小一次。
+- 地图有未知和遮挡区域，没有完整覆盖或导航能力验收。
+- USB 拔插没有专项人工回归。输入断流已测试，但驱动持续重放旧数据时，不能只靠消息到达时间判断冻结。
+- 软件 STOP 不等于硬件急停。外部直接发布速度的工具不受遥操作 router 仲裁，使用时应避免并发。
 
-ROS 2, Gazebo, ros2_control and SLAM Toolbox are upstream dependencies installed separately under their own licences.
+## 模型来源与许可证
+
+作者确认，10 个 STL 均为自行建模，没有嵌入第三方 CAD。传感器外观与房间场景使用基础几何体。资产清单与 SHA-256 见 [ASSET_PROVENANCE.md](docs/ASSET_PROVENANCE.md)。
+
+尚未选择开源许可证，包元数据保留 `Proprietary`。公开仓库不等于授予任意修改和再分发许可，说明见 [NOTICE.md](NOTICE.md)。ROS 2、Gazebo、ros2_control 和 SLAM Toolbox 是独立安装的上游依赖，遵循各自许可证。
+
+## 开发辅助说明
+
+ROS 2 集成、调试、自动化测试、GUI 和文档的部分工作使用了 OpenAI Codex 辅助，包括代码实现、运行检查和修改。项目作者负责提出需求、完成 CAD 建模、复核集成决策，操作仿真与手柄测试并进行最终验收。代码不作为全部由作者独立手写的成果展示。
