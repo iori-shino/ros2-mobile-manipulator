@@ -3,8 +3,8 @@
   "contains_git_history": false,
   "files": {
     "README.md": {
-      "bytes": 14059,
-      "sha256": "7ccefb44ad6c75f075dd7bf111baef2cd0fd5560b5e63a39e9ad2cc5ab4b9b1f"
+      "bytes": 13996,
+      "sha256": "88dec2483f7b893e8a59ad750b5ca4b841fbdf3996a04c857b10664aac4350a8"
     },
     ".gitignore": {
       "bytes": 549,

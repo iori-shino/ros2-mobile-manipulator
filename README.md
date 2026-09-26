@@ -1,12 +1,14 @@
 # ROS 2 移动机械臂仿真
 
+本项目使用了 **OpenAI Codex 辅助开发**，包括 ROS 2 集成代码、调试、自动化测试、GUI 和文档编写，以及运行检查和代码修改。需求与 CAD 建模、集成方案选择与复核、仿真和手柄操作测试、最终验收由人工完成；代码并非全部独立手写。
+
 > **课程设计 / 个人学习项目**：基于自建 SolidWorks 模型，完成移动底盘、机械臂、夹爪、传感器和 SLAM 的 ROS 2 仿真集成。机器人运动与定量结果均来自 Gazebo，尚未进行真实机器人实验。
 
 基于 **ROS 2 Humble、Gazebo Fortress 和 Python** 的移动机械臂仿真。机器人由四轮 skid-steer 底盘、J1–J4 四关节机械臂、平行夹爪、2D LiDAR 和 RGB 相机构成。
 
 目前可以通过键盘或 USB Nintendo Pro Controller 遥操作底盘，运行机械臂与夹爪演示，使用 SLAM Toolbox 建图并保存地图。提供一个 Tkinter 操作面板和基础自动化检查。
 
-我使用 USB 手柄测试了仿真机器人的运动和停止，目前还没有做实物机器人、抓取或载荷实验。项目不包含 Nav2、MoveIt、自动探索或路径规划。
+使用 USB 手柄测试了仿真机器人的运动和停止，目前还没有做实物机器人、抓取或载荷实验。项目不包含 Nav2、MoveIt、自动探索或路径规划。
 
 ## 仿真画面
 
@@ -32,7 +34,7 @@ RViz 中的机器人模型、TF、激光扫描、相机画面与 SLAM 地图：
 | 建图与显示 | SLAM Toolbox 2.6.10、RViz 2 |
 | GUI | Python Tkinter |
 
-这是我开发和测试时使用的环境。其他版本没有逐一测试，也还没有在全新虚拟机上重新走完安装流程。
+这是开发和测试时使用的环境。其他版本没有逐一测试，也还没有在全新虚拟机上重新走完安装流程。
 
 ## 机器人模型
 
@@ -283,10 +285,6 @@ maps/                               已保存的示例地图
 
 ## 模型来源与许可证
 
-仓库里的 10 个 STL 都是我在 SolidWorks 中自行建模的，没有使用下载的第三方 CAD。传感器外观和房间场景用基础几何体搭建。模型文件清单与 SHA-256 见 [ASSET_PROVENANCE.md](docs/ASSET_PROVENANCE.md)。
+仓库里的 10 个 STL 都是在 SolidWorks 中自行建模的，没有使用下载的第三方 CAD。传感器外观和房间场景用基础几何体搭建。模型文件清单与 SHA-256 见 [ASSET_PROVENANCE.md](docs/ASSET_PROVENANCE.md)。
 
-我还没有决定项目的开源许可证，目前保留 `Proprietary`，使用和分发说明见 [NOTICE.md](NOTICE.md)。ROS 2、Gazebo、ros2_control 和 SLAM Toolbox 需要单独安装，遵循各自的许可证。
-
-## 开发辅助说明
-
-这个项目用到了 OpenAI Codex。它参与了 ROS 2 集成代码、调试、自动化测试、GUI 和文档的编写，也协助运行检查和修改代码。我负责需求和 CAD 建模，参与集成方案的选择与复核，并操作仿真、手柄测试和完成最终验收。仓库中的代码并非全部由我独立手写。
+项目的开源许可证还没有决定，目前保留 `Proprietary`，使用和分发说明见 [NOTICE.md](NOTICE.md)。ROS 2、Gazebo、ros2_control 和 SLAM Toolbox 需要单独安装，遵循各自的许可证。
