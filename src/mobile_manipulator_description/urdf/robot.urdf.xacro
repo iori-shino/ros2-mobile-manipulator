@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mobile_manipulator">
+  <xacro:include filename="mesh_origins.xacro"/>
+  <xacro:include filename="common.xacro"/>
+  <xacro:include filename="chassis.xacro"/>
+  <xacro:include filename="arm.xacro"/>
+  <xacro:include filename="sensors.xacro"/>
+  <xacro:chassis/>
+  <xacro:arm/>
+  <xacro:sensors/>
+</robot>

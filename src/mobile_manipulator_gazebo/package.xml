@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>mobile_manipulator_gazebo</name>
+  <version>0.1.0</version>
+  <description>Fortress skid-steer simulation, with the verified description kept unchanged.</description>
+  <maintainer email="student@example.com">Student</maintainer>
+  <license>Proprietary</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>mobile_manipulator_description</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>ros_gz_sim</exec_depend>
+  <exec_depend>ros_gz_bridge</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>tf2_msgs</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
+  <exec_depend>ign_ros2_control</exec_depend>
+  <exec_depend>gz_ros2_control</exec_depend>
+  <exec_depend>controller_manager</exec_depend>
+  <exec_depend>joint_trajectory_controller</exec_depend>
+  <exec_depend>control_msgs</exec_depend>
+  <exec_depend>trajectory_msgs</exec_depend>
+  <exec_depend>action_msgs</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>slam_toolbox</exec_depend>
+  <exec_depend>python3-pil</exec_depend>
+  <exec_depend>rosgraph_msgs</exec_depend>
+  <exec_depend>joy</exec_depend>
+  <exec_depend>teleop_twist_joy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>controller_manager_msgs</exec_depend>
+  <exec_depend>python3-tk</exec_depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>

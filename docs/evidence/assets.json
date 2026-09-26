@@ -1,0 +1,65 @@
+{
+  "author_confirmation": "All ten STL files are self-created; no third-party CAD.",
+  "assets": [
+    {
+      "file": "src/mobile_manipulator_description/meshes/arm_base.STL",
+      "bytes": 20884,
+      "sha256": "daec0659a0f2e538ff5723b01106f041cbae6549066fd6266f23864ceb85c27f",
+      "source": "Self-modelled by project author; author confirmed no third-party CAD is embedded."
+    },
+    {
+      "file": "src/mobile_manipulator_description/meshes/base_plate.STL",
+      "bytes": 41084,
+      "sha256": "5e1dc779f5bee14c3d780e8ab273ab310cb6290472d83c72563f80ddc67d116a",
+      "source": "Self-modelled by project author; author confirmed no third-party CAD is embedded."
+    },
+    {
+      "file": "src/mobile_manipulator_description/meshes/gripper_base.STL",
+      "bytes": 684,
+      "sha256": "988852e39ec278162448b7173babfe9caa4a5efba368b7cdf9baaf07091e4e0d",
+      "source": "Self-modelled by project author; author confirmed no third-party CAD is embedded."
+    },
+    {
+      "file": "src/mobile_manipulator_description/meshes/gripper_jaw-1.STL",
+      "bytes": 1084,
+      "sha256": "2498b3f0e674f179191e02db89f9b3c780cee0e65d246e87f29efcb3e2475420",
+      "source": "Self-modelled by project author; author confirmed no third-party CAD is embedded."
+    },
+    {
+      "file": "src/mobile_manipulator_description/meshes/joint1_platform.STL",
+      "bytes": 19784,
+      "sha256": "9b0355c2793dd0613323179c51139f410a9d496606078e09ea6db6e811b4ccb1",
+      "source": "Self-modelled by project author; author confirmed no third-party CAD is embedded."
+    },
+    {
+      "file": "src/mobile_manipulator_description/meshes/link1.STL",
+      "bytes": 23084,
+      "sha256": "afc14dd61e6abc9ea5cd2d045dc67cf3f7ce7f380ab117e87436adedd58710bf",
+      "source": "Self-modelled by project author; author confirmed no third-party CAD is embedded."
+    },
+    {
+      "file": "src/mobile_manipulator_description/meshes/link2.STL",
+      "bytes": 22284,
+      "sha256": "8b8201e3f31e38b09589d80342f967f136e18a817161dbeb900a8b29985b7de3",
+      "source": "Self-modelled by project author; author confirmed no third-party CAD is embedded."
+    },
+    {
+      "file": "src/mobile_manipulator_description/meshes/link3.STL",
+      "bytes": 23084,
+      "sha256": "c5b77cb5fdff08ef31cf648e7ecf05f26b7d750bb66858e0bc0cfdc04a6dff23",
+      "source": "Self-modelled by project author; author confirmed no third-party CAD is embedded."
+    },
+    {
+      "file": "src/mobile_manipulator_description/meshes/wheel.STL",
+      "bytes": 19284,
+      "sha256": "98c251c3e910877fe54d42ba250bb8beb701a3faed8185496fd3b2e39770dd2e",
+      "source": "Self-modelled by project author; author confirmed no third-party CAD is embedded."
+    },
+    {
+      "file": "src/mobile_manipulator_description/meshes/wrist_mount.STL",
+      "bytes": 9084,
+      "sha256": "f3f9700e3dbe1f892b9455e42ab4c522b2a9418be7546fcc3ce7e2238ba3665c",
+      "source": "Self-modelled by project author; author confirmed no third-party CAD is embedded."
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 500
+    use_sim_time: true
+    arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+    gripper_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+arm_controller:
+  ros__parameters:
+    joints: [J1, J2, J3, J4]
+    command_interfaces: [position]
+    state_interfaces: [position, velocity]
+    state_publish_rate: 30.0
+    action_monitor_rate: 20.0
+    allow_partial_joints_goal: false
+    constraints:
+      goal_time: 3.0
+      stopped_velocity_tolerance: 0.05
+      J1: {trajectory: 0.2, goal: 0.025}
+      J2: {trajectory: 0.2, goal: 0.025}
+      J3: {trajectory: 0.2, goal: 0.025}
+      J4: {trajectory: 0.2, goal: 0.025}
+
+gripper_controller:
+  ros__parameters:
+    joints: [left_jaw_joint, right_jaw_joint]
+    command_interfaces: [effort]
+    state_interfaces: [position, velocity]
+    gains:
+      left_jaw_joint: {p: 2000.0, i: 100.0, d: 20.0, i_clamp: 1.0}
+      right_jaw_joint: {p: 2000.0, i: 100.0, d: 20.0, i_clamp: 1.0}
+    state_publish_rate: 30.0
+    action_monitor_rate: 20.0
+    constraints:
+      goal_time: 3.0
+      stopped_velocity_tolerance: 0.005
+      left_jaw_joint: {trajectory: 0.005, goal: 0.0005}
+      right_jaw_joint: {trajectory: 0.005, goal: 0.0005}

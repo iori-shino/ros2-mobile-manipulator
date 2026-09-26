@@ -1,0 +1,208 @@
+{
+  "gui": {
+    "pass": true,
+    "checks": {
+      "Tk window and ten controls": true,
+      "existing sessions detected": true,
+      "no duplicate launches": true,
+      "health command launched": true,
+      "health PASS": true,
+      "health 24 of 24": true,
+      "map save command launched": true,
+      "map save and reopen PASS": true,
+      "saved map files": true,
+      "arm demo invoked": true,
+      "arm action active": true,
+      "Stop zero through existing guard": true,
+      "GUI demo process stopped": true,
+      "arm goal cancellation observed": true,
+      "keyboard terminal node": true,
+      "external keyboard reused without duplicate": true,
+      "CLI services survive": true
+    },
+    "notes": [
+      "Existing simulation and SLAM were not restarted.",
+      "Full historical arm demo was not repeated; the GUI started it and Stop cancelled its first active goal.",
+      "Simulation start/stop command paths and process ownership were tested separately from live-session teardown.",
+      "An existing user keyboard terminal was reused and was not terminated by the test."
+    ],
+    "state": {
+      "simulation": "Running",
+      "slam": "Running",
+      "joy": "Running",
+      "teleop": "Running",
+      "keyboard": "Running (external)",
+      "arm": "Stopped",
+      "home": "Idle",
+      "health": "PASS",
+      "save_map": "PASS"
+    }
+  },
+  "live_health": {
+    "pass": true,
+    "checks": {
+      "required_nodes": true,
+      "topic /scan": true,
+      "topic /odom": true,
+      "topic /clock": true,
+      "topic /camera/image_raw": true,
+      "topic /sim/cmd_vel": true,
+      "topic /map": true,
+      "topic /teleop/status": true,
+      "topic /joy": true,
+      "scan_payload": true,
+      "camera_payload": true,
+      "odom_payload": true,
+      "slam_map": true,
+      "TF map -> odom": true,
+      "TF map -> base_footprint": true,
+      "TF map -> base_link": true,
+      "TF map -> lidar_link": true,
+      "TF map -> lidar_scan_frame": true,
+      "TF map -> camera_optical_frame": true,
+      "arm_controller active": true,
+      "gripper_controller active": true,
+      "cmd_vel -> guard -> sim bridge": true,
+      "SLAM save_map service": true,
+      "one joy publisher": true
+    },
+    "detail": {
+      "required_nodes": {
+        "missing": []
+      },
+      "topic /scan": {
+        "samples": 24,
+        "stamp_advance": 2.2999999999999545
+      },
+      "topic /odom": {
+        "samples": 71,
+        "stamp_advance": 2.3799999999998818
+      },
+      "topic /clock": {
+        "samples": 2407,
+        "stamp_advance": 2.407000000000153
+      },
+      "topic /camera/image_raw": {
+        "samples": 24,
+        "stamp_advance": 2.2999999999999545
+      },
+      "topic /sim/cmd_vel": {
+        "samples": 503,
+        "stamp_advance": 0
+      },
+      "topic /map": {
+        "samples": 26,
+        "stamp_advance": 2.3999999999998636
+      },
+      "topic /teleop/status": {
+        "samples": 92,
+        "stamp_advance": 0
+      },
+      "topic /joy": {
+        "samples": 419,
+        "stamp_advance": 25.053680896759033
+      },
+      "arm_controller active": "active",
+      "gripper_controller active": "active",
+      "cmd_vel -> guard -> sim bridge": {
+        "input_subscribers": [
+          "cmd_vel_guard"
+        ],
+        "output_publishers": [
+          "cmd_vel_guard"
+        ],
+        "output_subscribers": [
+          "robot_panel",
+          "system_health",
+          "gazebo_bridge"
+        ]
+      }
+    },
+    "read_only": true
+  },
+  "isolated_teleop_integration": {
+    "isolated_topics": "/stage6_test/*",
+    "checks": {
+      "discovery": true,
+      "no enable zero": true,
+      "off-center enable rejected": true,
+      "enabled forward": true,
+      "release zero": true,
+      "backward and left limits": true,
+      "stop button zero": true,
+      "enabled before loss": true,
+      "joy silence stops": true,
+      "no automatic reconnect motion": true,
+      "keyboard after joy": true,
+      "keyboard timeout": true,
+      "existing guard clamps": true,
+      "existing guard stale stop": true,
+      "existing guard rejects NaN": true,
+      "motion before router crash": true,
+      "router crash guard stop": true,
+      "TTY ready": true,
+      "TTY W event": true,
+      "TTY space event": true,
+      "TTY quit stop": true,
+      "TTY restored": true
+    },
+    "release_observed_wall_s": 0.15170493600089685,
+    "pass": true
+  },
+  "unit_tests": {
+    "passed": 18,
+    "failures": 0,
+    "errors": 0,
+    "environment": "Independently built publication candidate"
+  },
+  "source_build": {
+    "packages": 2,
+    "pass": true
+  },
+  "clean_candidate_build": {
+    "pass": true,
+    "packages": 2,
+    "checks": {
+      "clean_build": true,
+      "launch_sim": true,
+      "launch_slam": true,
+      "launch_mapping_demo": true,
+      "launch_teleop": true,
+      "launch_display": true,
+      "entry_arm_control": true,
+      "entry_system_health": true,
+      "entry_save_slam_map": true,
+      "entry_robot_panel": true,
+      "unit_tests": true,
+      "isolated_integration": true,
+      "portable_model": true
+    },
+    "environment": "Only /opt/ros/humble and candidate install overlay; development overlay excluded."
+  },
+  "release_static_audit": {
+    "pass": true,
+    "issues": [],
+    "asset_count": 10,
+    "scope": "Allowlisted snapshot, pattern scan, document links, syntax, asset hashes, manifest and file sizes."
+  },
+  "image_review": {
+    "pass": true,
+    "files": [
+      "docs/images/rviz.png",
+      "docs/images/panel.png",
+      "docs/images/map.png"
+    ],
+    "scope": "Application client captures and map reviewed for content and personal information."
+  },
+  "github": {
+    "created": false,
+    "pushed": false,
+    "visibility_changed": false
+  },
+  "scope": "Simulation integration; no physical robot validation. Existing simulation/SLAM sessions were preserved.",
+  "git_status": {
+    "development": "Modified and untracked final-stage/stage-6 files; no new commit. Earlier development history retained privately.",
+    "publication": "Fresh snapshot, no .git and no history.",
+    "remote_action": "No creation, push or visibility change."
+  }
+}

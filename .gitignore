@@ -1,0 +1,48 @@
+# Generated workspace output
+/build/
+/install/
+/log/
+/release/
+/dist/
+/maps/generated/
+
+# Python and tooling
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Local ROS/Gazebo/editor state and credentials
+.ros/
+.gazebo/
+.ignition/
+.gz/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.ssh/
+.codex/
+.agents/
+
+# Local historical handoff and raw captures; public evidence is curated in docs/evidence/
+/AGENTS.md
+/HANDOFF.md
+/validation/
+*.bag
+*.db3
+*.mcap
+*.log

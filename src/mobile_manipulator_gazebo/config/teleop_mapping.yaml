@@ -1,0 +1,55 @@
+device_name: Nintendo Co., Ltd. Pro Controller
+driver_deadzone: 0.05
+axes_count: 6
+buttons_count: 14
+axes:
+  left_up:
+    axis: 1
+    sign: 1
+    observed: 0.9963698983192444
+  left_down:
+    axis: 1
+    sign: -1
+    observed: -0.9924506545066833
+  left_left:
+    axis: 0
+    sign: 1
+    observed: 0.9825562238693237
+  left_right:
+    axis: 0
+    sign: -1
+    observed: -0.9858008623123169
+  right_up:
+    axis: 3
+    sign: 1
+    observed: 0.9727260768413544
+  right_down:
+    axis: 3
+    sign: -1
+    observed: -0.9938320517539978
+  right_left:
+    axis: 2
+    sign: 1
+    observed: 0.999518096446991
+  right_right:
+    axis: 2
+    sign: -1
+    observed: -0.9994538426399231
+buttons:
+  A: 1
+  B: 0
+  X: 2
+  Y: 3
+  L: 5
+  R: 6
+  ZL: 7
+  ZR: 8
+  minus: 9
+  plus: 10
+enable_button: 5
+stop_button: 0
+deadzone: 0.15
+max_linear: 0.05
+max_angular: 0.4
+joy_timeout: 0.3
+keyboard_timeout: 0.3

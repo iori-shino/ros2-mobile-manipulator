@@ -1,0 +1,766 @@
+{
+  "scope": "Gazebo simulation; real USB controller input, no physical robot experiment",
+  "records": {
+    "stage2_base": {
+      "source_file": "validation/handoff_20260926/stage2_acceptance.json",
+      "source_sha256": "f2e26ff8e0472add1e347d95832f89d21f47c12e1012dffcb41ec331ee695b95",
+      "selection": "Selected original fields; long sample streams and local runtime details excluded.",
+      "data": {
+        "tests": [
+          {
+            "command": "forward",
+            "actual_forward_m": 0.20043970071810974,
+            "actual_lateral_m": 1.9346650408692334e-09,
+            "actual_yaw_rad": 2.3533857069997282e-12,
+            "height_m": -0.001000005102807594
+          },
+          {
+            "command": "backward",
+            "actual_forward_m": -0.20003939994872505,
+            "actual_lateral_m": 2.3818030460577618e-12,
+            "actual_yaw_rad": -5.265679337298991e-12,
+            "height_m": -0.0010000051012348937
+          },
+          {
+            "command": "left",
+            "actual_forward_m": -8.275640726909188e-06,
+            "actual_lateral_m": 9.077596077101614e-05,
+            "actual_yaw_rad": 1.384357292308884,
+            "height_m": -0.0010000051020157552
+          },
+          {
+            "command": "right",
+            "actual_forward_m": 8.889421282036926e-05,
+            "actual_lateral_m": 2.1775386798302833e-05,
+            "actual_yaw_rad": -1.381041468808865,
+            "height_m": -0.0010000051020256848
+          }
+        ],
+        "passed": true,
+        "settled_pose_xyz_rpy": [
+          7.777305144787077e-07,
+          1.0147231059899023e-06,
+          -0.001000392487998887,
+          -2.0073014652087934e-10,
+          7.440102566909601e-07,
+          -4.096986077287783e-06
+        ],
+        "watchdog_stopped": true,
+        "max_abs_roll_rad": 2.0358247856898756e-10,
+        "max_abs_pitch_rad": 7.440102566909601e-07,
+        "height_range_m": [
+          -0.001000392487998887,
+          -0.0010000051012348937
+        ]
+      }
+    },
+    "stage3_arm_gripper": {
+      "source_file": "validation/handoff_20260926/stage3_arm_acceptance.json",
+      "source_sha256": "38cb6714849df2e213935d380a7671218c3a0cdd6bdafe0031fa9f279dccfb03",
+      "selection": "Selected original fields; long sample streams and local runtime details excluded.",
+      "data": {
+        "passed": true,
+        "tests": [
+          {
+            "joint": "J1",
+            "target_rad": 0.45,
+            "actual": {
+              "J1": 0.4499998025794381,
+              "J2": 1.0434599252514284e-12,
+              "J3": 4.974777538523946e-12,
+              "J4": 5.469001423265339e-12
+            }
+          },
+          {
+            "joint": "J1",
+            "target_rad": -0.3,
+            "actual": {
+              "J1": -0.2999999779343427,
+              "J2": 1.0365051811549726e-12,
+              "J3": 4.970711414350461e-12,
+              "J4": 5.469063227993347e-12
+            }
+          },
+          {
+            "joint": "J1",
+            "target_rad": 0.0,
+            "actual": {
+              "J1": -3.2985043086280984e-08,
+              "J2": 1.0366348088003959e-12,
+              "J3": 4.97165098720576e-12,
+              "J4": 5.468838255175206e-12
+            }
+          },
+          {
+            "joint": "J2",
+            "target_rad": 0.45,
+            "actual": {
+              "J1": 1.1879895012520534e-13,
+              "J2": 0.4499999613928916,
+              "J3": 2.1390491033557253e-11,
+              "J4": 1.2180343440117251e-11
+            }
+          },
+          {
+            "joint": "J2",
+            "target_rad": -0.3,
+            "actual": {
+              "J1": 2.741568522107135e-15,
+              "J2": -0.2999999741234471,
+              "J3": -7.146043659859791e-12,
+              "J4": 2.281798479401139e-13
+            }
+          },
+          {
+            "joint": "J2",
+            "target_rad": 0.0,
+            "actual": {
+              "J1": 1.2397676682924254e-15,
+              "J2": -7.544883356501983e-09,
+              "J3": 4.9721063215286326e-12,
+              "J4": 5.468468724380344e-12
+            }
+          },
+          {
+            "joint": "J3",
+            "target_rad": 0.45,
+            "actual": {
+              "J1": -1.155945390283796e-16,
+              "J2": 3.2849703395898897e-12,
+              "J3": 0.4499999614018233,
+              "J4": 1.2018650454727356e-11
+            }
+          },
+          {
+            "joint": "J3",
+            "target_rad": -0.3,
+            "actual": {
+              "J1": 1.8099564012650885e-15,
+              "J2": -1.3316880867573579e-12,
+              "J3": -0.29999997904253584,
+              "J4": 1.8076440207513756e-13
+            }
+          },
+          {
+            "joint": "J3",
+            "target_rad": 0.0,
+            "actual": {
+              "J1": 1.2290794983497639e-15,
+              "J2": 1.0368788707014464e-12,
+              "J3": -2.8197234564886997e-08,
+              "J4": 5.468025704464222e-12
+            }
+          },
+          {
+            "joint": "J4",
+            "target_rad": 0.45,
+            "actual": {
+              "J1": -9.548362586994285e-16,
+              "J2": 2.1201617234450857e-12,
+              "J3": 9.961807360687577e-12,
+              "J4": 0.4499999150258064
+            }
+          },
+          {
+            "joint": "J4",
+            "target_rad": -0.3,
+            "actual": {
+              "J1": 3.476882885011023e-15,
+              "J2": 1.2819750381979296e-13,
+              "J3": 6.179874579843472e-13,
+              "J4": -0.299999991450721
+            }
+          },
+          {
+            "joint": "J4",
+            "target_rad": 0.0,
+            "actual": {
+              "J1": 1.2466485501272767e-15,
+              "J2": 1.0367993338786554e-12,
+              "J3": 4.972278669251967e-12,
+              "J4": -3.868064903625531e-08
+            }
+          },
+          {
+            "jaw_target_m": 0.015,
+            "actual": {
+              "left_jaw_joint": 0.014963164864014559,
+              "right_jaw_joint": 0.015000012577826629
+            },
+            "gap_mm": 49.96317744184119
+          },
+          {
+            "jaw_target_m": 0.0,
+            "actual": {
+              "left_jaw_joint": -6.07077499941062e-07,
+              "right_jaw_joint": -3.7827108934258234e-16
+            },
+            "gap_mm": 19.99939292249968
+          },
+          {
+            "jaw_target_m": 0.0075,
+            "actual": {
+              "left_jaw_joint": 0.007471426108483615,
+              "right_jaw_joint": 0.007500026238711505
+            },
+            "gap_mm": 34.97145234719512
+          },
+          {
+            "jaw_target_m": 0.0,
+            "actual": {
+              "left_jaw_joint": -7.25384420323106e-07,
+              "right_jaw_joint": -3.521799671643376e-16
+            },
+            "gap_mm": 19.999274615579324
+          }
+        ],
+        "max_base_translation_m": 3.0793893136959086e-05,
+        "max_base_tilt_rad": 4.251189946251686e-10,
+        "height_range_m": [
+          -0.001000005098220555,
+          -0.0010000050659155074
+        ],
+        "max_jaw_asymmetry_m": 7.345921556079806e-05
+      }
+    },
+    "stage3_base_regression": {
+      "source_file": "validation/handoff_20260926/stage3_base_regression.json",
+      "source_sha256": "d6d974ee435e6f544577816318d4359f1ff22fb2f4bc447bdcb25bb9bc6290d6",
+      "selection": "Selected original fields; long sample streams and local runtime details excluded.",
+      "data": {
+        "tests": [
+          {
+            "command": "forward",
+            "actual_forward_m": 0.19995969997431554,
+            "actual_lateral_m": 3.4190070304111595e-07,
+            "actual_yaw_rad": 2.7785582418962743e-12,
+            "height_m": -0.001000005098220555
+          },
+          {
+            "command": "backward",
+            "actual_forward_m": -0.20043939994879414,
+            "actual_lateral_m": 6.673618724855417e-11,
+            "actual_yaw_rad": -5.352051763030306e-12,
+            "height_m": -0.001000005096647473
+          },
+          {
+            "command": "left",
+            "actual_forward_m": -7.670506548973663e-06,
+            "actual_lateral_m": 9.11591912712172e-05,
+            "actual_yaw_rad": 1.3826993797618037,
+            "height_m": -0.0010000050974283692
+          },
+          {
+            "command": "right",
+            "actual_forward_m": 8.926130060335808e-05,
+            "actual_lateral_m": 2.1340885478260785e-05,
+            "actual_yaw_rad": -1.3788309192119648,
+            "height_m": -0.0010000050974404776
+          }
+        ],
+        "passed": true,
+        "settled_pose_xyz_rpy": [
+          -1.535412300982377e-13,
+          -3.4190358507301153e-07,
+          -0.0010000050974169478,
+          -2.0144038103891167e-10,
+          1.592126312337256e-10,
+          -2.1714317143325956e-15
+        ],
+        "watchdog_stopped": true,
+        "max_abs_roll_rad": 2.0347528674098646e-10,
+        "max_abs_pitch_rad": 4.2511947033152685e-10,
+        "height_range_m": [
+          -0.001000005098220555,
+          -0.001000005096647473
+        ]
+      }
+    },
+    "stage5_route": {
+      "source_file": "validation/stage5/stage5_route.json",
+      "source_sha256": "799a97881bc117cfeee5ead39107e2b342e653509fcb789bb46f00be7fbddc4b",
+      "selection": "Selected original fields; long sample streams and local runtime details excluded.",
+      "data": {
+        "passed": true,
+        "segments": [
+          {
+            "start": [
+              -2.7684083800609594e-13,
+              -2.4423673611740387e-13,
+              -0.0010008810667699666,
+              -1.489214754622603e-10,
+              2.768721910611997e-10,
+              -3.107682991317382e-17
+            ],
+            "end": [
+              0.49661172843970297,
+              9.627316528527621e-12,
+              -0.0010000050828706183,
+              -1.4579583827398113e-10,
+              4.830614770482873e-10,
+              -1.548579707928867e-10
+            ],
+            "distance_m": 0.4966117284399798,
+            "command": "forward"
+          },
+          {
+            "start": [
+              0.49661172843970297,
+              9.627316528527621e-12,
+              -0.0010000050828706183,
+              -1.4579583827398113e-10,
+              4.830614770482873e-10,
+              -1.548579707928867e-10
+            ],
+            "end": [
+              0.49663401618525077,
+              4.518104280600815e-05,
+              -0.0010000050827545792,
+              -1.4769809121707854e-10,
+              2.811213534706485e-10,
+              -1.5538058399513497
+            ],
+            "yaw_rad": -1.5538058397964918,
+            "command": "right"
+          },
+          {
+            "start": [
+              0.49663401618525077,
+              4.518104280600815e-05,
+              -0.0010000050827545792,
+              -1.4769809121707854e-10,
+              2.811213534706485e-10,
+              -1.5538058399513497
+            ],
+            "end": [
+              0.4972622240905216,
+              -0.49624772022844543,
+              -0.0010000050828606333,
+              -1.4580246331622534e-10,
+              4.830848990549975e-10,
+              -1.5707962855941076
+            ],
+            "distance_m": 0.49629329886409745,
+            "command": "forward"
+          },
+          {
+            "start": [
+              0.4972622240905216,
+              -0.49624772022844543,
+              -0.0010000050828606333,
+              -1.4580246331622534e-10,
+              4.830848990549975e-10,
+              -1.5707962855941076
+            ],
+            "end": [
+              0.4973074055052848,
+              -0.4962699684895077,
+              -0.0010000050827490073,
+              -1.4777053827383415e-10,
+              2.808805412929456e-10,
+              -3.1242468150810203
+            ],
+            "yaw_rad": -1.5534505294869128,
+            "command": "right"
+          },
+          {
+            "start": [
+              0.4973074055052848,
+              -0.4962699684895077,
+              -0.0010000050827490073,
+              -1.4777053827383415e-10,
+              2.808805412929456e-10,
+              -3.1242468150810203
+            ],
+            "end": [
+              0.0010397510945034884,
+              -0.4969118458264524,
+              -0.0010000050828567059,
+              -1.4579975066698334e-10,
+              4.830872012069984e-10,
+              -3.141592611532948
+            ],
+            "distance_m": 0.4962680695157551,
+            "command": "forward"
+          },
+          {
+            "start": [
+              0.0010397510945034884,
+              -0.4969118458264524,
+              -0.0010000050828567059,
+              -1.4579975066698334e-10,
+              4.830872012069984e-10,
+              -3.141592611532948
+            ],
+            "end": [
+              0.0010174573570671643,
+              -0.49695702949658455,
+              -0.0010000050827461276,
+              -1.4769570777026736e-10,
+              2.811267566025627e-10,
+              1.5875299392907134
+            ],
+            "yaw_rad": -1.5540627563559248,
+            "command": "right"
+          },
+          {
+            "start": [
+              0.0010174573570671643,
+              -0.49695702949658455,
+              -0.0010000050827461276,
+              -1.4769570777026736e-10,
+              2.811267566025627e-10,
+              1.5875299392907134
+            ],
+            "end": [
+              0.0003992558755109694,
+              -0.00020819749518113337,
+              -0.0010000050828545548,
+              -1.4579265574701527e-10,
+              4.830575265474287e-10,
+              1.5707963656020578
+            ],
+            "distance_m": 0.4967492166756082,
+            "command": "forward"
+          },
+          {
+            "start": [
+              0.0003992558755109694,
+              -0.00020819749518113337,
+              -0.0010000050828545548,
+              -1.4579265574701527e-10,
+              4.830575265474287e-10,
+              1.5707963656020578
+            ],
+            "end": [
+              0.00035407294206264136,
+              -0.0001859445979787239,
+              -0.0010000050827440737,
+              -1.4776712546550808e-10,
+              2.808940662691693e-10,
+              0.016981677753433313
+            ],
+            "yaw_rad": -1.5538146878486245,
+            "command": "right"
+          }
+        ],
+        "initial_map": {
+          "sim_time": 16.145,
+          "width": 118,
+          "height": 98,
+          "known_cells": 1441,
+          "occupied_cells": 48,
+          "sha256": "8212ce599b9c8fe9156033c98dc9efaaea6f22b3997298d7a69b86a8e1d92288"
+        },
+        "loop_endpoint_error_m": 0.00039992879606697305,
+        "loop_heading_error_rad": 0.016981677753433344,
+        "base_smoke": [
+          {
+            "command": "forward",
+            "physical_distance_m": 0.07983899995748354
+          },
+          {
+            "command": "backward",
+            "physical_distance_m": -0.07979799991496823
+          }
+        ],
+        "watchdog_rest_motion_m": 0.0,
+        "final_map": {
+          "sim_time": 106.735,
+          "width": 119,
+          "height": 98,
+          "known_cells": 8946,
+          "occupied_cells": 413,
+          "sha256": "726eb4a51826f05a711b42a0f9324badb92dbad3949f527ec9db968c75841d2e"
+        },
+        "unique_maps": 13,
+        "known_cells_growth": 7505,
+        "max_slam_position_error_m": 0.017841620886667978,
+        "max_slam_heading_error_rad": 0.13989815932677918
+      }
+    },
+    "stage5_geometry": {
+      "source_file": "validation/stage5/stage5_map_audit.json",
+      "source_sha256": "50070904af9e31f0691501f7e04353eca3e88ab79141af5940bd34b6f6e953e7",
+      "selection": "Selected original fields; long sample streams and local runtime details excluded.",
+      "data": {
+        "map": {
+          "size": [
+            119,
+            98
+          ],
+          "resolution": 0.05000000074505806,
+          "origin": [
+            -2.4665886586456263,
+            -2.4685926823401236
+          ],
+          "known_cells": 8946,
+          "occupied_cells": 413,
+          "publishers": [
+            "slam_toolbox"
+          ]
+        },
+        "geometry": {
+          "occupied_within_15cm_fraction": 1.0,
+          "median_wall_error_m": 0.008411341726902763,
+          "p95_wall_error_m": 0.05841134247196082,
+          "nearby_occupied_cells_by_object": {
+            "front_green_target": 14,
+            "left_red_target": 18,
+            "right_blue_target": 18,
+            "north_wall": 0,
+            "south_wall": 143,
+            "west_wall": 90,
+            "east_wall": 72,
+            "interior_partition": 45,
+            "interior_pillar": 19
+          }
+        },
+        "controllers": {
+          "arm_controller": "active",
+          "gripper_controller": "active"
+        },
+        "passed": true
+      }
+    },
+    "stage6_physical": {
+      "source_file": "validation/stage6/physical_acceptance.json",
+      "source_sha256": "7b73cdfce6a8b8846b29dc437a984e77ae9e45f35137813ff8a25dc51b742acd",
+      "selection": "Selected original fields; long sample streams and local runtime details excluded.",
+      "data": {
+        "pass": true,
+        "source": "physical USB /joy, /sim/cmd_vel, /ground_truth/pose",
+        "checks": {
+          "joy_continuous_and_idle_zero": true,
+          "forward": {
+            "pass": true,
+            "before": [
+              0.022092353167628954,
+              0.00018265460974934583,
+              -0.001000005082601764,
+              -1.4926902163494964e-10,
+              2.846118324001085e-10,
+              0.01565880564363941
+            ],
+            "after": [
+              0.027422796880899332,
+              0.0002661298150461702,
+              -0.001000005082462202,
+              -1.5346676693611908e-10,
+              2.0445925082544942e-11,
+              0.015658805843524113
+            ]
+          },
+          "forward_release_stop_s": 0.06615341600263491,
+          "backward": {
+            "pass": true,
+            "before": [
+              0.0397301925000923,
+              0.0004587483411860438,
+              -0.0010000050827431994,
+              -1.4524056975257923e-10,
+              5.356715729524007e-10,
+              0.015638876398812868
+            ],
+            "after": [
+              0.033968896366629864,
+              0.000368895798142075,
+              -0.0010000050827427345,
+              -1.452483746487724e-10,
+              5.350188079921609e-10,
+              0.015594059693147122
+            ]
+          },
+          "backward_release_stop_s": 0.07453643799817655,
+          "left": {
+            "pass": true,
+            "before": [
+              0.023250596891908833,
+              0.00020174008936447118,
+              -0.001000005082463111,
+              -1.53472677187898e-10,
+              1.97762998564605e-11,
+              0.015594059901124342
+            ],
+            "after": [
+              0.023691191459072922,
+              0.00020485673600994543,
+              -0.0010000050826174112,
+              -1.4501163701101704e-10,
+              2.964457784513984e-10,
+              0.03224834108083963
+            ]
+          },
+          "left_release_stop_s": 0.036873102999379626,
+          "right": {
+            "pass": true,
+            "before": [
+              0.023823429003916836,
+              0.0002117116972536335,
+              -0.0010000050825911128,
+              -1.5369854312828513e-10,
+              2.6545569994852895e-10,
+              0.07835733179526076
+            ],
+            "after": [
+              0.02382289709641973,
+              0.00021901727110648249,
+              -0.0010000050825897666,
+              -1.5383073683260116e-10,
+              2.643336087550449e-10,
+              0.06060053088710127
+            ]
+          },
+          "right_release_stop_s": 0.023554084000352304,
+          "B_stop": true,
+          "keyboard_after_joy": true,
+          "gazebo_stable": true
+        },
+        "max_tilt_rad": 5.417121375450061e-10,
+        "height_range_m": [
+          -0.0010000050827468493,
+          -0.001000005082457768
+        ]
+      }
+    },
+    "stage6_health": {
+      "source_file": "validation/stage6/health_calibrated.json",
+      "source_sha256": "dcd89e2f27691539b0efaf24399767171c8dd158be2715abe92a90b4f2e9c2c6",
+      "selection": "Selected original fields; long sample streams and local runtime details excluded.",
+      "data": {
+        "pass": true,
+        "checks": {
+          "required_nodes": true,
+          "topic /scan": true,
+          "topic /odom": true,
+          "topic /clock": true,
+          "topic /camera/image_raw": true,
+          "topic /sim/cmd_vel": true,
+          "topic /map": true,
+          "topic /teleop/status": true,
+          "topic /joy": true,
+          "scan_payload": true,
+          "camera_payload": true,
+          "odom_payload": true,
+          "slam_map": true,
+          "TF map -> odom": true,
+          "TF map -> base_footprint": true,
+          "TF map -> base_link": true,
+          "TF map -> lidar_link": true,
+          "TF map -> lidar_scan_frame": true,
+          "TF map -> camera_optical_frame": true,
+          "arm_controller active": true,
+          "gripper_controller active": true,
+          "cmd_vel -> guard -> sim bridge": true,
+          "SLAM save_map service": true,
+          "one joy publisher": true
+        },
+        "detail": {
+          "required_nodes": {
+            "missing": []
+          },
+          "topic /scan": {
+            "samples": 29,
+            "stamp_advance": 2.7999999999999545
+          },
+          "topic /odom": {
+            "samples": 85,
+            "stamp_advance": 2.8559999999999945
+          },
+          "topic /clock": {
+            "samples": 2864,
+            "stamp_advance": 2.8629999999999427
+          },
+          "topic /camera/image_raw": {
+            "samples": 29,
+            "stamp_advance": 2.7999999999999545
+          },
+          "topic /sim/cmd_vel": {
+            "samples": 503,
+            "stamp_advance": 0
+          },
+          "topic /map": {
+            "samples": 26,
+            "stamp_advance": 2.800000000000068
+          },
+          "topic /teleop/status": {
+            "samples": 88,
+            "stamp_advance": 0
+          },
+          "topic /joy": {
+            "samples": 408,
+            "stamp_advance": 25.02462077140808
+          },
+          "arm_controller active": "active",
+          "gripper_controller active": "active",
+          "cmd_vel -> guard -> sim bridge": {
+            "input_subscribers": [
+              "cmd_vel_guard"
+            ],
+            "output_publishers": [
+              "cmd_vel_guard"
+            ],
+            "output_subscribers": [
+              "system_health",
+              "gazebo_bridge"
+            ]
+          }
+        },
+        "read_only": true
+      }
+    },
+    "stage6_integration": {
+      "source_file": "validation/stage6/teleop_integration.json",
+      "source_sha256": "0e3d17af4a37d0578ec0805ca54f00febb6ab4b75395d85579e435fed3da9303",
+      "selection": "Selected original fields; long sample streams and local runtime details excluded.",
+      "data": {
+        "isolated_topics": "/stage6_test/*",
+        "checks": {
+          "discovery": true,
+          "no enable zero": true,
+          "off-center enable rejected": true,
+          "enabled forward": true,
+          "release zero": true,
+          "backward and left limits": true,
+          "stop button zero": true,
+          "enabled before loss": true,
+          "joy silence stops": true,
+          "no automatic reconnect motion": true,
+          "keyboard after joy": true,
+          "keyboard timeout": true,
+          "existing guard clamps": true,
+          "existing guard stale stop": true,
+          "existing guard rejects NaN": true,
+          "motion before router crash": true,
+          "router crash guard stop": true,
+          "TTY ready": true,
+          "TTY W event": true,
+          "TTY space event": true,
+          "TTY quit stop": true,
+          "TTY restored": true
+        },
+        "release_observed_wall_s": 0.10144075499920291,
+        "pass": true
+      }
+    },
+    "speed_clock_sample": {
+      "source_file": "validation/stage6/speed_clock_audit.json",
+      "source_sha256": "537ca1ce85ca5eaa7b8aab16d5f9bac35e50f54f61e576053188a12a1044f778",
+      "selection": "Selected original fields; long sample streams and local runtime details excluded.",
+      "data": {
+        "read_only": true,
+        "clock_samples": 1153,
+        "wall_seconds": 9.999210053996649,
+        "sim_seconds": 1.1520000000000437,
+        "real_time_factor": 0.11520910089688469,
+        "linear_limit_m_per_sim_second": 0.05,
+        "linear_limit_m_per_sim_minute": 3.0,
+        "keyboard_speed_m_per_sim_second": 0.04,
+        "full_stick_theoretical_m_per_wall_minute": 0.34562730269065406,
+        "acceptance_max_linear_command": 0.04993952933479758,
+        "acceptance_max_angular_command": 0.4,
+        "current_output_zero": true
+      }
+    }
+  }
+}

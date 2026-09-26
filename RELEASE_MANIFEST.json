@@ -1,0 +1,314 @@
+{
+  "format": 1,
+  "contains_git_history": false,
+  "files": {
+    "README.md": {
+      "bytes": 13262,
+      "sha256": "eb229f5c55027dba25c4f5ae6062bcf1633d3e3a7139138b19c50d77111cd0fc"
+    },
+    ".gitignore": {
+      "bytes": 549,
+      "sha256": "d7d8500e16043de860d99f6aa9ee1d3f5c8718c3f44211aa6cb85964abd8e40e"
+    },
+    "NOTICE.md": {
+      "bytes": 1003,
+      "sha256": "0b95464bef5f93b06a99c0fe9a24de6029b3612099a9b46d07fdf95a86e4b876"
+    },
+    "src/mobile_manipulator_description/CMakeLists.txt": {
+      "bytes": 215,
+      "sha256": "0342cee03fde4f23e2fb9e9afa9e1434d2d5038a199609332ed69c482ceba641"
+    },
+    "src/mobile_manipulator_description/config/display.rviz": {
+      "bytes": 1416,
+      "sha256": "56297f98dbed908309a5b6f16cdb8802f4953b380a1d426928ff277485a44c27"
+    },
+    "src/mobile_manipulator_description/config/joint_defaults.yaml": {
+      "bytes": 253,
+      "sha256": "160f00426fd0d0cb57768e3976107928d75798a54700c476e539efba1e9a8f40"
+    },
+    "src/mobile_manipulator_description/config/mesh_alignment.json": {
+      "bytes": 8739,
+      "sha256": "b704c13a818e3bfcf3b5c518c6e0db62106b71d1103dfcadedd62ad6b2a9570d"
+    },
+    "src/mobile_manipulator_description/launch/display.launch.py": {
+      "bytes": 1364,
+      "sha256": "4352189b48a278f93f63eee9ed70d66f69f3ff472dbc3487aaaf40fdf29802c8"
+    },
+    "src/mobile_manipulator_description/meshes/arm_base.STL": {
+      "bytes": 20884,
+      "sha256": "daec0659a0f2e538ff5723b01106f041cbae6549066fd6266f23864ceb85c27f"
+    },
+    "src/mobile_manipulator_description/meshes/base_plate.STL": {
+      "bytes": 41084,
+      "sha256": "5e1dc779f5bee14c3d780e8ab273ab310cb6290472d83c72563f80ddc67d116a"
+    },
+    "src/mobile_manipulator_description/meshes/gripper_base.STL": {
+      "bytes": 684,
+      "sha256": "988852e39ec278162448b7173babfe9caa4a5efba368b7cdf9baaf07091e4e0d"
+    },
+    "src/mobile_manipulator_description/meshes/gripper_jaw-1.STL": {
+      "bytes": 1084,
+      "sha256": "2498b3f0e674f179191e02db89f9b3c780cee0e65d246e87f29efcb3e2475420"
+    },
+    "src/mobile_manipulator_description/meshes/joint1_platform.STL": {
+      "bytes": 19784,
+      "sha256": "9b0355c2793dd0613323179c51139f410a9d496606078e09ea6db6e811b4ccb1"
+    },
+    "src/mobile_manipulator_description/meshes/link1.STL": {
+      "bytes": 23084,
+      "sha256": "afc14dd61e6abc9ea5cd2d045dc67cf3f7ce7f380ab117e87436adedd58710bf"
+    },
+    "src/mobile_manipulator_description/meshes/link2.STL": {
+      "bytes": 22284,
+      "sha256": "8b8201e3f31e38b09589d80342f967f136e18a817161dbeb900a8b29985b7de3"
+    },
+    "src/mobile_manipulator_description/meshes/link3.STL": {
+      "bytes": 23084,
+      "sha256": "c5b77cb5fdff08ef31cf648e7ecf05f26b7d750bb66858e0bc0cfdc04a6dff23"
+    },
+    "src/mobile_manipulator_description/meshes/wheel.STL": {
+      "bytes": 19284,
+      "sha256": "98c251c3e910877fe54d42ba250bb8beb701a3faed8185496fd3b2e39770dd2e"
+    },
+    "src/mobile_manipulator_description/meshes/wrist_mount.STL": {
+      "bytes": 9084,
+      "sha256": "f3f9700e3dbe1f892b9455e42ab4c522b2a9418be7546fcc3ce7e2238ba3665c"
+    },
+    "src/mobile_manipulator_description/package.xml": {
+      "bytes": 911,
+      "sha256": "1f07e77d04085e16dc18daea4dc3c76605535170e4113e0d474895e41a2e188b"
+    },
+    "src/mobile_manipulator_description/urdf/arm.xacro": {
+      "bytes": 5106,
+      "sha256": "7dde86c35c16d4269395bf905d5039aa23b28c8653cf7c19049d74f3f01e4bb0"
+    },
+    "src/mobile_manipulator_description/urdf/chassis.xacro": {
+      "bytes": 2478,
+      "sha256": "bd41f28900a11d02023cd4df4ade2808ef07fc6428634904bfad924182f84a42"
+    },
+    "src/mobile_manipulator_description/urdf/common.xacro": {
+      "bytes": 2465,
+      "sha256": "d52e46ede4d6ac542b7270bd8405fdda59546cacd3aedae5df4802764ccfbd0d"
+    },
+    "src/mobile_manipulator_description/urdf/mesh_origins.xacro": {
+      "bytes": 2156,
+      "sha256": "540b528e342474b94b0ef75a972e0d8cd9bb3dcefe397009f7a27991dedb3047"
+    },
+    "src/mobile_manipulator_description/urdf/robot.urdf.xacro": {
+      "bytes": 382,
+      "sha256": "bd550bb0e26f17f9154b346401d31c061c6d8255bd62958f272997bba77740eb"
+    },
+    "src/mobile_manipulator_description/urdf/sensors.xacro": {
+      "bytes": 1830,
+      "sha256": "24653fada028f23733f0003acf3a1315b3ed1c1b4553ced8400a4ce99281bb90"
+    },
+    "src/mobile_manipulator_gazebo/CMakeLists.txt": {
+      "bytes": 1315,
+      "sha256": "0d020ac3448f908df9c3986284f433756b75ba5f81e23153f1c578a9a0b635f4"
+    },
+    "src/mobile_manipulator_gazebo/config/arm_controllers.yaml": {
+      "bytes": 1297,
+      "sha256": "0521bd1960d22e2ce696c84edfc8c17413f98b013ea5262c9773d39a9b388c58"
+    },
+    "src/mobile_manipulator_gazebo/config/bridge.yaml": {
+      "bytes": 1068,
+      "sha256": "4c011c5c23e1661239ce4e26c9bb42a25cba7a53cf524c5aa504d7521e1fdf9a"
+    },
+    "src/mobile_manipulator_gazebo/config/fortress_gui.config": {
+      "bytes": 9334,
+      "sha256": "0e81887e06fc5d1d1b1ef313f1a47027382a4c3221ac9c844b1364b248ae22c1"
+    },
+    "src/mobile_manipulator_gazebo/config/sensors.rviz": {
+      "bytes": 1576,
+      "sha256": "94170c0a203e60948687505abe5eb66f6a55c8fbe5e9f97d1e837976ff15bdf8"
+    },
+    "src/mobile_manipulator_gazebo/config/slam.rviz": {
+      "bytes": 1862,
+      "sha256": "6d70b96cfdc6dc32ab37c8ac498bfcbe633be678b1982fdc0f16f21cde08ae2d"
+    },
+    "src/mobile_manipulator_gazebo/config/slam.yaml": {
+      "bytes": 1898,
+      "sha256": "e1743f8471db159ba1ef930ac8ef4926736fff7a27eda1efdf2946cef6fd57c8"
+    },
+    "src/mobile_manipulator_gazebo/config/teleop_mapping.yaml": {
+      "bytes": 885,
+      "sha256": "e69ced697816f750f56400057c652c07f44e1a2592e0ac0d3a896224a29d7251"
+    },
+    "src/mobile_manipulator_gazebo/launch/mapping_demo.launch.py": {
+      "bytes": 1075,
+      "sha256": "4e772aece3e528bd2fe68a3d985e9e785b3669dca0031a0bc4f4f66a7fdd37bc"
+    },
+    "src/mobile_manipulator_gazebo/launch/sensors_view.launch.py": {
+      "bytes": 479,
+      "sha256": "361b4b765cf169c67f855fb6e92045f1583fdf705a2d107cb6fa075e90e9f051"
+    },
+    "src/mobile_manipulator_gazebo/launch/sim.launch.py": {
+      "bytes": 5340,
+      "sha256": "2ece38d5729313ebff99bf86ee032fe0dfa8af7ff9429f2d0c8dcb197cf6e8a7"
+    },
+    "src/mobile_manipulator_gazebo/launch/slam.launch.py": {
+      "bytes": 1260,
+      "sha256": "8c066755518fe8165533e2351e29560bb958c302cf50490bfcef78c05619972a"
+    },
+    "src/mobile_manipulator_gazebo/launch/teleop.launch.py": {
+      "bytes": 1918,
+      "sha256": "36e68f4c07b90cb78fcca7ac966406a52ec6c2f55c55d4783fffed85f1ed3012"
+    },
+    "src/mobile_manipulator_gazebo/package.xml": {
+      "bytes": 1754,
+      "sha256": "1a7f9eb2b94952ccbb67ca8e118b86f9bbdd65ca4512ff571befee158bdfe521"
+    },
+    "src/mobile_manipulator_gazebo/scripts/acceptance_test.py": {
+      "bytes": 6165,
+      "sha256": "847c5773040ba40a91d9d16dc97e4c52d915875ed7e96772fa03ee434c23454d"
+    },
+    "src/mobile_manipulator_gazebo/scripts/arm_control.py": {
+      "bytes": 6566,
+      "sha256": "e7f237d52b2f9a757fb15efeca5a33fd403a63f760c3ffab63ce9f13eceb1f5d"
+    },
+    "src/mobile_manipulator_gazebo/scripts/cmd_vel_guard.py": {
+      "bytes": 1458,
+      "sha256": "8a5944f0a4a06af9301652b1ee0a6cf1fb2665f013d040cdbc502a5bf721bd6c"
+    },
+    "src/mobile_manipulator_gazebo/scripts/drive.py": {
+      "bytes": 1439,
+      "sha256": "4c88347e84bcba01a49dd4fefff62e5149fd7ada413f0719032a37b9d2de5990"
+    },
+    "src/mobile_manipulator_gazebo/scripts/panel_runtime.py": {
+      "bytes": 5603,
+      "sha256": "6d33520b4cb551539fd356c2aed3b82d2c1b9b3d20424112fef65476608a5c8d"
+    },
+    "src/mobile_manipulator_gazebo/scripts/prepare_model.py": {
+      "bytes": 10268,
+      "sha256": "6b79313fa10f6a504adc78f4c15181b5fc462dad65b9f05b56900a2869bc6848"
+    },
+    "src/mobile_manipulator_gazebo/scripts/robot_panel.py": {
+      "bytes": 9365,
+      "sha256": "da84f91f303f9969730e88c37993e00ab98d2619753f778d72f5f3d46154a0c3"
+    },
+    "src/mobile_manipulator_gazebo/scripts/save_slam_map.py": {
+      "bytes": 2198,
+      "sha256": "9d1cf4e7c085064ac9451dad3502e63a0209b97fb8a91cb0bf769d560a2975cb"
+    },
+    "src/mobile_manipulator_gazebo/scripts/slam_test_route.py": {
+      "bytes": 7630,
+      "sha256": "1876de9c05cd194ec80e3ef5d88ce91b3fb5e21474d92a165a14adc5b470f097"
+    },
+    "src/mobile_manipulator_gazebo/scripts/system_health.py": {
+      "bytes": 6798,
+      "sha256": "d72d2d2eaaf74be117c11de93cc43e363a8c3ecab9c0434baad027db97a50b79"
+    },
+    "src/mobile_manipulator_gazebo/scripts/teleop_core.py": {
+      "bytes": 3768,
+      "sha256": "58a86498e160c5d32e940236c00e71e335364764220b4a4f6ed1303379f10e96"
+    },
+    "src/mobile_manipulator_gazebo/scripts/teleop_keyboard.py": {
+      "bytes": 2003,
+      "sha256": "387d32ce3145427ae009b687f3aebb37a4a45316f025646dcdbcb58f1d915d44"
+    },
+    "src/mobile_manipulator_gazebo/scripts/teleop_router.py": {
+      "bytes": 2479,
+      "sha256": "6b1362c3f279a0ae62a59825b84b9ce54e1b31a76957e0a58e4497c426fc3c84"
+    },
+    "src/mobile_manipulator_gazebo/worlds/flat_world.sdf": {
+      "bytes": 3267,
+      "sha256": "32ace816d66245d66a2c3ace6e80b33ead18dc1ac635b35a44050e01e0addda9"
+    },
+    "src/mobile_manipulator_gazebo/worlds/slam_room.sdf": {
+      "bytes": 7917,
+      "sha256": "6f4ee892725303d28c437c9ff655a3fb7767fbd1b93ea2788d1514de0e79ef37"
+    },
+    "docs/ASSET_PROVENANCE.md": {
+      "bytes": 2305,
+      "sha256": "620460a997c16200918b27a1e14d173ac7944043295e8a9226042679a410ccbb"
+    },
+    "docs/ENGINEERING_LOG.md": {
+      "bytes": 7320,
+      "sha256": "c4aca23697b4e67a6b4cada91568239267097d9a90ee0a49feac94d01c0ded3d"
+    },
+    "docs/GUI.md": {
+      "bytes": 2654,
+      "sha256": "2541e27e5c75a6c6c71d63780b2830bf9a25bf1fa8c2fedb1afd0ea4e34b64e6"
+    },
+    "docs/PROJECT_FACTS.md": {
+      "bytes": 7390,
+      "sha256": "0b0355bb7eb95a5f2ca45985be7bd0951d26f57897f670b15188a86b6541afb2"
+    },
+    "docs/RELEASE_CHECKLIST.md": {
+      "bytes": 2970,
+      "sha256": "cdb08ee25f5ce19a5625907d0f3298264940c11682d66d96f4a42315fead1898"
+    },
+    "docs/VALIDATION.md": {
+      "bytes": 4391,
+      "sha256": "34121d6196def7d6ba26b32df6a25e6ab4ac059ac05561bb37ced3038a28644c"
+    },
+    "docs/evidence/assets.json": {
+      "bytes": 3020,
+      "sha256": "00381693cc3ce0fb77b907adf7f69a2421c713dcab5bc86326bd6fec282f75d2"
+    },
+    "docs/evidence/final_checks.json": {
+      "bytes": 6208,
+      "sha256": "83a39de280ada95028225f6621381d2eafd4731eb172f82ef6e8838126321bd1"
+    },
+    "docs/evidence/results.json": {
+      "bytes": 25145,
+      "sha256": "2b382af79a727dd325812f3bea38bafea249d2cb54a7554f3140f395b0328e0c"
+    },
+    "docs/images/map.png": {
+      "bytes": 735,
+      "sha256": "c7cea8da904e4755f3d58309147322fa74d8ee30f21dcb8771544a23aa480e5d"
+    },
+    "docs/images/panel.png": {
+      "bytes": 36692,
+      "sha256": "aaaf389622b168b4c5ccfd7b872f3dfd05e02bca0f829807afa7b87216da8b06"
+    },
+    "docs/images/rviz.png": {
+      "bytes": 56020,
+      "sha256": "a0fa50461e3418f5d13cb5d0f34a051142844680d47509e823b2e8da406fafd4"
+    },
+    "tools/acceptance/conftest.py": {
+      "bytes": 136,
+      "sha256": "e1c68c8277ac1cd281b233f3e7d8a79ecda95b2696d2acf87150e02cadd324e8"
+    },
+    "tools/acceptance/test_teleop_core.py": {
+      "bytes": 3413,
+      "sha256": "f71997a74fc46b3ed6be5dd6af66aa34471f50a7e63eb44f7ea7f70e29c83193"
+    },
+    "tools/acceptance/test_panel_runtime.py": {
+      "bytes": 3622,
+      "sha256": "12ce44cd26b627ab396a29643c0c7fd015caabb06c3c8c298abe9e8c42f5f8d5"
+    },
+    "tools/acceptance/teleop_integration.py": {
+      "bytes": 7571,
+      "sha256": "e172bfc0139914e2d7e045e090620720713b5bc11326193d4a1a89b7ddeb598b"
+    },
+    "tools/acceptance/joy_calibrate.py": {
+      "bytes": 5713,
+      "sha256": "e7b8a35990c268bb4e5ddf1b75a445b9b983d8ce6195bd7d5d3a9c31d9998cc1"
+    },
+    "tools/acceptance/teleop_physical_acceptance.py": {
+      "bytes": 7672,
+      "sha256": "b96ad65d62d0603997ad847ca015dff06d219f97856349d1d1f33a29d2a5b61a"
+    },
+    "tools/prepare_release.py": {
+      "bytes": 2832,
+      "sha256": "a63c2bdf6b69de5c4be039495e14a747cb21eb3c2ca0e5c59f5a80f6474155d0"
+    },
+    "tools/check_release.py": {
+      "bytes": 5289,
+      "sha256": "a5ed0efaf65fd0fe9e5c3e882a1e54c23c76f5d304c9ccf8a36f623b1f91e862"
+    },
+    "maps/stage5_room_20260927.yaml": {
+      "bytes": 138,
+      "sha256": "bb6b5a4d94be230ecb0c7262c69468c3b1e4a0e4d0aca84e606ad6032f514ea2"
+    },
+    "maps/stage5_room_20260927.pgm": {
+      "bytes": 11676,
+      "sha256": "0ccd227bc9487994eb28d148b50df8ebfd282f965fde293feaef29a5da8b1c3f"
+    },
+    "docs/RELEASE_FILES.md": {
+      "bytes": 2281,
+      "sha256": "7cbb3bed38923859178f89be691c50ec88108fe81067bece80d7c7057499b173"
+    }
+  }
+}

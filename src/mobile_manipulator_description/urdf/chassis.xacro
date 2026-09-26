@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="wheel" params="name x y mimic_joint:=''">
+    <link name="${name}">
+      <xacro:mesh_visual file="wheel" xyz="${wheel_mesh_xyz}" rpy="${wheel_mesh_rpy}" material="rubber"/>
+      <xacro:cylinder_collision radius="0.05" length="0.03" rpy="${pi/2} 0 0"/>
+      <xacro:cylinder_inertial mass="0.25" radius="0.05" length="0.03" rpy="${pi/2} 0 0"/>
+    </link>
+    <joint name="${name}_joint" type="continuous">
+      <parent link="base_link"/><child link="${name}"/>
+      <origin xyz="${x} ${y} -0.01"/>
+      <axis xyz="0 1 0"/>
+      <limit effort="3" velocity="10"/>
+      <xacro:if value="${mimic_joint != ''}">
+        <mimic joint="${mimic_joint}" multiplier="1" offset="0"/>
+      </xacro:if>
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="chassis" params="">
+    <!-- Empty root avoids the KDL root-inertia limitation. No odom/map in this phase. -->
+    <link name="base_footprint"/>
+    <xacro:fixed_joint name="base_footprint_joint" parent="base_footprint" child="base_link" xyz="0 0 0.061"/>
+    <link name="base_link">
+      <xacro:mesh_visual file="base_plate" xyz="${base_plate_mesh_xyz}" rpy="${base_plate_mesh_rpy}" material="chassis_blue"/>
+      <xacro:box_collision size="0.4 0.3 0.08"/>
+      <!-- Rear battery housing and lidar support already belong to base_plate.STL. -->
+      <xacro:box_collision size="0.12 0.08 0.04" xyz="-0.12 0.085 0.06"/>
+      <xacro:cylinder_collision radius="0.04" length="0.06" xyz="-0.13 -0.08 0.07"/>
+      <xacro:cylinder_collision radius="0.01" length="0.05" xyz="0.15 0.175 -0.01" rpy="${pi/2} 0 0"/>
+      <xacro:cylinder_collision radius="0.01" length="0.05" xyz="-0.15 0.175 -0.01" rpy="${pi/2} 0 0"/>
+      <xacro:cylinder_collision radius="0.01" length="0.05" xyz="0.15 -0.175 -0.01" rpy="${pi/2} 0 0"/>
+      <xacro:cylinder_collision radius="0.01" length="0.05" xyz="-0.15 -0.175 -0.01" rpy="${pi/2} 0 0"/>
+      <xacro:box_inertial mass="5.0" size="0.4 0.3 0.08"/>
+    </link>
+    <!-- Rear wheels follow the front wheel of the same side in this GUI preview. -->
+    <xacro:wheel name="front_left_wheel" x="0.15" y="0.175"/>
+    <xacro:wheel name="rear_left_wheel" x="-0.15" y="0.175" mimic_joint="front_left_wheel_joint"/>
+    <xacro:wheel name="front_right_wheel" x="0.15" y="-0.175"/>
+    <xacro:wheel name="rear_right_wheel" x="-0.15" y="-0.175" mimic_joint="front_right_wheel_joint"/>
+  </xacro:macro>
+</robot>

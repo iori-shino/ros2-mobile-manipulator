@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="arm_segment" params="name file xyz rpy size com mass">
+    <link name="${name}">
+      <xacro:mesh_visual file="${file}" xyz="${xyz}" rpy="${rpy}" material="arm_silver"/>
+      <xacro:box_collision size="${size}" xyz="${com}"/>
+      <xacro:box_inertial mass="${mass}" size="${size}" xyz="${com}"/>
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="pitch_joint" params="name parent child xyz lower upper effort">
+    <joint name="${name}" type="revolute">
+      <parent link="${parent}"/><child link="${child}"/>
+      <origin xyz="${xyz}"/>
+      <axis xyz="0 1 0"/>
+      <limit lower="${lower}" upper="${upper}" effort="${effort}" velocity="1.0"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="arm" params="">
+    <link name="arm_base_link">
+      <xacro:mesh_visual file="arm_base" xyz="${arm_base_mesh_xyz}" rpy="${arm_base_mesh_rpy}" material="arm_silver"/>
+      <xacro:cylinder_collision radius="0.05" length="0.02" xyz="0 0 0.01"/>
+      <xacro:cylinder_collision radius="0.03" length="0.04" xyz="0 0 0.04"/>
+      <xacro:cylinder_inertial mass="0.5" radius="0.05" length="0.06" xyz="0 0 0.03"/>
+    </link>
+    <xacro:fixed_joint name="arm_base_joint" parent="base_link" child="arm_base_link" xyz="0 0 0.04"/>
+    <link name="joint1_platform">
+      <xacro:mesh_visual file="joint1_platform" xyz="${joint1_platform_mesh_xyz}" rpy="${joint1_platform_mesh_rpy}" material="joint_orange"/>
+      <xacro:box_collision size="0.08 0.08 0.065" xyz="0 0 0.0325"/>
+      <xacro:box_inertial mass="0.35" size="0.08 0.08 0.065" xyz="0 0 0.0325"/>
+    </link>
+    <joint name="J1" type="revolute">
+      <parent link="arm_base_link"/><child link="joint1_platform"/>
+      <origin xyz="0 0 0.06"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="${-pi}" upper="${pi}" effort="10" velocity="1.0"/>
+    </joint>
+
+    <!-- Zero pose: links upright. Pitch +Y tilts each link from +Z toward +X. -->
+    <!-- Measured hole spacing is 110/100/75 mm, NOT overall STL length. -->
+    <xacro:arm_segment name="link1" file="link1" xyz="${link1_mesh_xyz}" rpy="${link1_mesh_rpy}"
+                       size="0.045 0.020 0.150" com="0 0 0.055" mass="0.30"/>
+    <xacro:pitch_joint name="J2" parent="joint1_platform" child="link1" xyz="0 0.040 0.040"
+                       lower="${-pi/2}" upper="${pi/2}" effort="10"/>
+    <xacro:arm_segment name="link2" file="link2" xyz="${link2_mesh_xyz}" rpy="${link2_mesh_rpy}"
+                       size="0.035 0.018 0.140" com="0 0 0.050" mass="0.25"/>
+    <xacro:pitch_joint name="J3" parent="link1" child="link2" xyz="0 -0.024 0.110"
+                       lower="${-5*pi/6}" upper="${5*pi/6}" effort="7"/>
+    <xacro:arm_segment name="link3" file="link3" xyz="${link3_mesh_xyz}" rpy="${link3_mesh_rpy}"
+                       size="0.035 0.016 0.110" com="0 0 0.0375" mass="0.18"/>
+    <xacro:pitch_joint name="J4" parent="link2" child="link3" xyz="0 0.022 0.100"
+                       lower="${-5*pi/6}" upper="${5*pi/6}" effort="4"/>
+
+    <xacro:arm_segment name="wrist_mount" file="wrist_mount" xyz="${wrist_mount_mesh_xyz}" rpy="${wrist_mount_mesh_rpy}"
+                       size="0.035 0.016 0.050" com="0 0 0.0075" mass="0.10"/>
+    <xacro:fixed_joint name="wrist_mount_joint" parent="link3" child="wrist_mount" xyz="0 -0.016 0.075"/>
+    <xacro:arm_segment name="gripper_base" file="gripper_base" xyz="${gripper_base_mesh_xyz}" rpy="${gripper_base_mesh_rpy}"
+                       size="0.012 0.080 0.050" com="0 0 -0.025" mass="0.12"/>
+    <xacro:fixed_joint name="gripper_base_joint" parent="wrist_mount" child="gripper_base"
+                       xyz="0.0675 -0.002 0.0075" rpy="${pi/2} 0 ${pi/2}"/>
+    <!-- L profiles swapped per user: narrow fingers face the central opening. -->
+    <xacro:jaw name="left_jaw" side="1" yaw="${pi}"/>
+    <xacro:jaw name="right_jaw" side="-1" yaw="0"/>
+  </xacro:macro>
+
+  <xacro:macro name="jaw" params="name side yaw">
+    <link name="${name}">
+      <xacro:mesh_visual file="gripper_jaw-1" xyz="${gripper_jaw_1_mesh_xyz}" rpy="${gripper_jaw_1_mesh_rpy}" material="joint_orange"/>
+      <xacro:box_collision size="0.010 0.020 0.030" xyz="0 0 -0.015"/>
+      <xacro:box_collision size="0.010 0.010 0.045" xyz="0 0.005 0.0225"/>
+      <xacro:box_inertial mass="0.04" size="0.010 0.020 0.075" xyz="0 0 0.0075"/>
+    </link>
+    <joint name="${name}_joint" type="prismatic">
+      <parent link="gripper_base"/><child link="${name}"/>
+      <!-- Root blocks sit on the gripper plate outer face; fingers extend along tool +Z. -->
+      <!-- Each finger projects 10 mm inward from its root center; +/-20 mm gives a 20 mm gap. -->
+      <origin xyz="0.011 ${side*0.020} 0" rpy="0 0 ${yaw}"/>
+      <axis xyz="0 -1 0"/>
+      <limit lower="0" upper="0.015" effort="15" velocity="0.02"/>
+      <xacro:if value="${side == -1}">
+        <!-- Left local -Y maps to parent +Y; right local -Y maps to parent -Y. -->
+        <mimic joint="left_jaw_joint" multiplier="1" offset="0"/>
+      </xacro:if>
+    </joint>
+  </xacro:macro>
+</robot>
