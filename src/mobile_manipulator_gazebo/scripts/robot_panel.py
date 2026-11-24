@@ -10,6 +10,7 @@ import time
 import tkinter as tk
 from tkinter import ttk
 import rclpy
+from rclpy.utilities import remove_ros_args
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
 from std_msgs.msg import String
@@ -22,7 +23,7 @@ class PanelBackend(Node):
         super().__init__('robot_panel')
         self.jobs=Jobs(workspace)
         self.root=self.jobs.root
-        self.message='Ready. Existing sessions are detected; closing this panel leaves them running.'
+        self.message='已就绪。关闭此窗口后，已开启的仿真仍会运行。'
         self.stop_until=0.
         self.key=self.create_publisher(String,'/teleop/key',10)
         self.vel=self.create_publisher(Twist,'/cmd_vel',10)
@@ -91,7 +92,7 @@ class PanelBackend(Node):
             for client in self.cancels:
                 if client.service_is_ready():
                     self.pending.append((client.srv_name,client.call_async(CancelGoal.Request())))
-        self.message='STOP sent through /cmd_vel; teleop disarmed; arm goals cancellation requested. New commands can resume motion.'
+        self.message='已发送停止指令，遥控已解除并请求取消机械臂动作。'
 
     def stop_simulation(self):
         if 'cmd_vel_guard' in self.nodes and not self.jobs.running('simulation'):
@@ -105,17 +106,22 @@ class PanelBackend(Node):
 class Panel:
     def __init__(self,window,backend):
         self.window=window;self.backend=backend
-        window.title('Mobile manipulator — ROS 2 panel')
-        window.geometry('700x485')
+        window.title('移动操作机器人 · 基础操作')
+        window.geometry('750x505')
+        style=ttk.Style(window)
+        style.theme_use('clam')
+        style.configure('TFrame',background='#eef3f9')
+        style.configure('TLabel',background='#eef3f9',foreground='#22334b')
+        style.configure('TButton',padding=(9,6))
         frame=ttk.Frame(window,padding=14);frame.pack(fill='both',expand=True)
-        ttk.Label(frame,text='ROS 2 mobile manipulator',font=('Sans',15,'bold')).pack(anchor='w')
-        ttk.Label(frame,text='Gazebo simulation · existing CLI interfaces · software stop only').pack(anchor='w',pady=(3,12))
+        ttk.Label(frame,text='移动操作机器人',font=('Sans',15,'bold')).pack(anchor='w')
+        ttk.Label(frame,text='Gazebo 仿真 · 手动控制与建图').pack(anchor='w',pady=(3,12))
         controls=ttk.Frame(frame);controls.pack(fill='x')
         self.buttons={}
-        entries=[('Start simulation',lambda:backend.start('simulation')),('Stop simulation',backend.stop_simulation),
-                 ('Keyboard teleop',lambda:backend.start('keyboard')),('Gamepad teleop',lambda:backend.start('teleop')),
-                 ('Arm demo',lambda:backend.start('arm')),('Arm / gripper home',lambda:backend.start('home')),
-                 ('Health check',lambda:backend.start('health')),('Start SLAM',lambda:backend.start('slam'))]
+        entries=[('启动 Gazebo',lambda:backend.start('simulation')),('关闭本面板启动的仿真',backend.stop_simulation),
+                 ('键盘遥控',lambda:backend.start('keyboard')),('手柄遥控',lambda:backend.start('teleop')),
+                 ('机械臂示范',lambda:backend.start('arm')),('机械臂与夹爪回零',lambda:backend.start('home')),
+                 ('检查运行状态',lambda:backend.start('health')),('启动 SLAM 建图',lambda:backend.start('slam'))]
         for i,(label,callback) in enumerate(entries):
             button=ttk.Button(controls,text=label,command=lambda cb=callback:self.call(cb))
             button.grid(row=i//2,column=i%2,sticky='ew',padx=3,pady=3);self.buttons[label]=button
@@ -123,9 +129,9 @@ class Panel:
         maps=ttk.Frame(frame);maps.pack(fill='x',pady=8)
         self.map_name=tk.StringVar(value=datetime.now().strftime('map_%Y%m%d_%H%M%S'))
         ttk.Entry(maps,textvariable=self.map_name).pack(side='left',fill='x',expand=True)
-        self.buttons['Save map']=ttk.Button(maps,text='Save map',command=lambda:self.call(lambda:backend.save_map(self.map_name.get())))
+        self.buttons['Save map']=ttk.Button(maps,text='保存地图',command=lambda:self.call(lambda:backend.save_map(self.map_name.get())))
         self.buttons['Save map'].pack(side='left',padx=(6,0))
-        self.buttons['STOP']=tk.Button(frame,text='STOP — base + cancel arm',bg='#b3261e',fg='white',font=('Sans',12,'bold'),command=lambda:self.call(backend.stop_commands))
+        self.buttons['STOP']=tk.Button(frame,text='停止底盘与机械臂',bg='#b3261e',fg='white',font=('Sans',12,'bold'),command=lambda:self.call(backend.stop_commands))
         self.buttons['STOP'].pack(fill='x',pady=(0,10))
         self.states=tk.StringVar();ttk.Label(frame,textvariable=self.states,justify='left').pack(anchor='w')
         self.message=tk.StringVar();ttk.Label(frame,textvariable=self.message,wraplength=665,justify='left').pack(anchor='w',pady=10)
@@ -143,9 +149,13 @@ class Panel:
         rclpy.spin_once(self.backend,timeout_sec=0)
         self.backend.refresh()
         state=self.backend.status()
-        self.states.set(' | '.join(f'{k}: {state[k]}' for k in ['simulation','slam','teleop'])+'\n'+
-                        ' | '.join(f'{k}: {state[k]}' for k in ['joy','keyboard'])+'\n'+
-                        ' | '.join(f'{k}: {state[k]}' for k in ['arm','home','health','save_map']))
+        names={'simulation':'仿真','slam':'建图','teleop':'遥控','joy':'手柄','keyboard':'键盘',
+               'arm':'机械臂','home':'回零','health':'状态检查','save_map':'保存地图'}
+        labels={'Running':'运行中','Stopped':'已停止','Running (external)':'外部会话',
+                'Idle':'待执行','PASS':'通过','Stopping':'正在停止','Exited':'已退出'}
+        rows=[('simulation','slam','teleop'),('joy','keyboard'),('arm','home','health','save_map')]
+        self.states.set('\n'.join('  ·  '.join(f'{names[key]} {labels.get(state[key],state[key])}'
+                                              for key in row) for row in rows))
         self.message.set(self.backend.message)
         self.window.after(50,self.tick)
 
@@ -158,7 +168,8 @@ class Panel:
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--workspace',type=Path,default=Path.cwd(),help='Built workspace; defaults to current directory')
-    args=parser.parse_args()
+    parser.add_argument('--start-all',action='store_true',help='Start simulation and SLAM with this panel; reuse running sessions')
+    args=parser.parse_args(remove_ros_args()[1:])
     if not (args.workspace/'install/setup.bash').exists():
         parser.error('Choose a built workspace with --workspace, or run from its root.')
     rclpy.init()
@@ -166,7 +177,30 @@ def main():
     try:
         window=tk.Tk()
         backend=PanelBackend(args.workspace)
-        Panel(window,backend)
+        panel=Panel(window,backend)
+        if args.start_all:
+            deadline=time.monotonic()+120
+            def start_all():
+                if panel.closed: return
+                try:
+                    backend.refresh()
+                    if 'cmd_vel_guard' not in backend.nodes:
+                        if 'simulation' in backend.jobs.results:
+                            raise RuntimeError('Simulation exited; see log/panel/simulation.log')
+                        if not backend.jobs.running('simulation'):
+                            backend.start('simulation')
+                    else:
+                        if 'slam_toolbox' not in backend.nodes and not backend.jobs.running('slam'):
+                            backend.start('slam')
+                        backend.message='仿真与 SLAM 已启动。机器人生成后会打开 Gazebo。'
+                        return
+                    if time.monotonic()>deadline:
+                        raise RuntimeError('Simulation startup timed out; see log/panel/simulation.log')
+                    window.after(500,start_all)
+                except Exception as exc:
+                    backend.message='FAIL: '+str(exc)
+            # Allow discovery of sessions from an earlier panel before starting new ones.
+            window.after(2500,start_all)
         window.mainloop()
     except tk.TclError as exc:
         raise SystemExit('GUI display unavailable; use the documented CLI commands. '+str(exc))

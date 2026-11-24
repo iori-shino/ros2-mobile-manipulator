@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<sdf version="1.8">
+  <model name="m2_obstacle">
+    <static>true</static>
+    <pose>0.62 -0.51 0.225 0 0 0</pose>
+    <link name="box">
+      <collision name="collision">
+        <geometry><box><size>0.18 0.18 0.45</size></box></geometry>
+      </collision>
+      <visual name="visual">
+        <geometry><box><size>0.18 0.18 0.45</size></box></geometry>
+        <material><ambient>0.8 0.45 0.1 1</ambient><diffuse>0.8 0.45 0.1 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+</sdf>

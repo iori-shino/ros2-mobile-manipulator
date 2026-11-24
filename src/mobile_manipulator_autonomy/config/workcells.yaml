@@ -1,0 +1,58 @@
+# Coordinates are metres and yaw is radians. Pose rows are [x, y, yaw].
+base_footprint_rest_z_m: -0.001
+
+m43:
+  pickup_dock: [0.30, 0.0, 0.0]
+  pickup_table_local_xy: [0.278, 0.0]
+  table_size_xy: [0.112, 0.135]
+  table_top_m: 0.1175
+  drop_dock_world: [0.178, 0.240, 1.5707963267948966]
+  drop_table_world_xy: [0.178, 0.518]
+
+m5:
+  observation_world: [0.0, 0.0, 0.0]
+  pickup_table_world_xy: [0.475, 0.0]
+  pickup_table_size_xy: [0.110, 0.308]
+  table_top_m: 0.1175
+  # Face the table along +X. Estimate each dock by subtracting this offset
+  # from the observed cube position after transforming to the navigation frame.
+  cube_from_pickup_dock_xy: [0.273, 0.008]
+  cube_x_range_m: [0.458, 0.472]
+  cube_lanes_y_m: [-0.078, 0.0, 0.078]
+  cube_y_jitter_m: 0.008
+
+  drop_table_size_xy: [0.112, 0.135]
+  drop_zones:
+    red:
+      table_world_xy: [-0.945, -0.680]
+      dock_world: [-0.672, -0.680, 3.141592653589793]
+    blue:
+      table_world_xy: [-0.945, 0.0]
+      dock_world: [-0.672, 0.0, 3.141592653589793]
+    yellow:
+      table_world_xy: [-0.945, 0.680]
+      dock_world: [-0.672, 0.680, 3.141592653589793]
+
+  # Keep the workcell and transfer corridors clear. All obstacle envelopes
+  # stay outside this rectangle and inside the four room walls.
+  clear_transfer_xy: [[-1.30, 0.90], [-1.10, 1.10]]
+  obstacle_count: 5
+  obstacle_jitter_m: 0.10
+  obstacle_slots_world_xy:
+    - [-1.90, -1.35]
+    - [-1.90, 1.35]
+    - [-0.90, -1.55]
+    - [-0.65, 1.55]
+    - [0.25, -1.58]
+    - [0.40, 1.65]
+    - [1.38, -0.65]
+    - [1.38, 0.12]
+    - [1.15, 1.86]
+    - [1.82, -1.45]
+
+# Fresh SLAM session initialized at the known SDF spawn. These stations
+# use the same axes as the M5 layout; do not reuse with an unrelated map.
+m6:
+  station_frame: map
+  room_walls_xy: [-2.45, 3.45, -2.45, 2.45]
+  color_priority: [red, blue, yellow]

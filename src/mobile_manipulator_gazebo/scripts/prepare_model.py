@@ -34,6 +34,7 @@ def main():
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--controllers',type=Path,required=True)
     parser.add_argument('--control-plugin',type=Path,required=True)
+    parser.add_argument('--grasp-contacts', action='store_true')
     args=parser.parse_args()
     args.output.mkdir(parents=True,exist_ok=True)
     files=sorted(args.description.glob('urdf/*.xacro'))
@@ -108,6 +109,17 @@ def main():
                 put(ode,'mu','0.2');put(ode,'mu2','0.8')
                 put(ode,'fdir1','0 0 1')
                 put(ode,'slip1','0.035');put(ode,'slip2','0.0')
+    if args.grasp_contacts:
+        for side in ('left', 'right'):
+            jaw = f'{side}_jaw'
+            link = model.find(f"link[@name='{jaw}']")
+            fingertip = f'{jaw}_collision_1'
+            if link is None or link.find(f"collision[@name='{fingertip}']") is None:
+                raise RuntimeError(f'Cannot find fingertip collision {fingertip}')
+            sensor = ET.SubElement(link, 'sensor', name=f'{jaw}_contact', type='contact')
+            contact = ET.SubElement(sensor, 'contact')
+            put(contact, 'collision', fingertip)
+            put(contact, 'topic', f'/grasp/contact/{side}')
     # Sensor origins match the existing TF frames; no source Xacro changes.
     lidar=ET.SubElement(model.find("link[@name='lidar_link']"),'sensor',name='lidar',type='gpu_lidar')
     # Scan above the placeholder housing so its own visual cannot occlude rays.

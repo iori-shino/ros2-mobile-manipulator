@@ -1,0 +1,15 @@
+- ros_topic_name: /grasp/contact/left
+  gz_topic_name: /grasp/contact/left
+  ros_type_name: ros_gz_interfaces/msg/Contacts
+  gz_type_name: ignition.msgs.Contacts
+  direction: GZ_TO_ROS
+- ros_topic_name: /grasp/contact/right
+  gz_topic_name: /grasp/contact/right
+  ros_type_name: ros_gz_interfaces/msg/Contacts
+  gz_type_name: ignition.msgs.Contacts
+  direction: GZ_TO_ROS
+- ros_topic_name: /grasp/cube_pose
+  gz_topic_name: /model/grasp_cube/pose
+  ros_type_name: tf2_msgs/msg/TFMessage
+  gz_type_name: ignition.msgs.Pose_V
+  direction: GZ_TO_ROS
